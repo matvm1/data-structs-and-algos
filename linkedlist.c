@@ -6,11 +6,11 @@ typedef struct node {
     struct node *next;
 } node;
 
-node * create(int num);
-node * createm(int nums[], int len);
+node * create_node(int val);
+node * create_list(int vals[], int len);
 void print(node *head);
-/*void add(node *head, int val);
-void add(node *bt, int val);
+void add(node *head, int val);
+/*void add(node *bt, int val);
 void remove(node *head, int val);
 void sort(node *head);
 void create_circular_link(node *head);
@@ -30,22 +30,24 @@ int main (int argc, char *argv[])
 }
 
 // Creates a linked list with a single node whose value is val
-node * create(int num)
+// Returns a pointre to the node
+node * create_node(int val)
 {
     node *head = (node *)malloc(sizeof(node *));
-    head->val = num;
+    head->val = val;
 
     return head;
 }
 
 // Creates a linked list with multiples node whose values are those stored in int val[]
-node * createm(int nums[], int len)
+// Returns a pointer to the head of the list
+node * create_list(int vals[], int len)
 {
-    node *head = create(nums[0]);
+    node *head = create(vals[0]);
     node *prev = head;
     for(int i = 1; i < len; i++)
     {
-        node *n = create(nums[i]);
+        node *n = create(vals[i]);
         prev->next = n;
         prev = n;
     }
