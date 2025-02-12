@@ -11,49 +11,46 @@ typedef struct list {
     node *tail;
 } list;
 
-node * create_node(int val);
-list * create_list(int vals[], int len);
-void printn(node *head);
-void print(list *l);
-void append(list *l, int val);
-node * search(list *l, int val);
-void unlink(list *l, int val);
-void unlink_all(list *l, int val);
-/*void sort(node *head);
-void create_circular_link(node *head);
-void remove_ciruclar_link(node *head);
+node * lnode(int val);
+list * lcreate(int vals[], int len);
+void lprintn(node *head);
+void lprint(list *l);
+void lappend(list *l, int val);
+node * lsearch(list *l, int val);
+void lunlink(list *l, int val);
+void lunlink_all(list *l, int val);
 void reverse(node *head);
-void free();*/
+/*void free();*/
 
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     // Create a linked list with one node
-    node *n = create_node(4);
-    printn(n);
+    node *n = lnode(4);
+    lprintn(n);
 
     int nums[] = {1, 3, 5, 7, 11, -1, -10, -100, 11, 3, 1, 1};
-    list *l = create_list(nums, sizeof(nums)/sizeof(nums[0]));
-    print(l);
+    list *l = lcreate(nums, sizeof(nums)/sizeof(nums[0]));
+    lprint(l);
 
-    append(l, 15);
-    print(l);
+    lappend(l, 15);
+    lprint(l);
 
-    printn(search(l, 52));
+    lprintn(lsearch(l, 52));
 
-    append(l, 33);
-    unlink(l, 33);
-    print(l);
+    lappend(l, 33);
+    lunlink(l, 33);
+    lprint(l);
 
-    append(l, 1);
-    unlink_all(l, 15);
-    unlink_all(l, 1);
-    print(l);
-    printn(l->tail);
+    lappend(l, 1);
+    lunlink_all(l, 15);
+    lunlink_all(l, 1);
+    lprint(l);
+    lprintn(l->tail);
 }
 
 // Creates a linked list with a single node whose value is val
 // Returns a pointre to the node
-node * create_node(int val)
+node * lnode(int val)
 {
     node *head = (node *)malloc(sizeof(node *));
     head->val = val;
@@ -63,13 +60,13 @@ node * create_node(int val)
 
 // Creates a linked list with multiples node whose values are those stored in int val[]
 // Returns a pointer to the head of the list
-list * create_list(int vals[], int len)
+list * lcreate(int vals[], int len)
 {
-    node *head = create_node(vals[0]);
+    node *head = lnode(vals[0]);
     node *prev = head;
     for(int i = 1; i < len; i++)
     {
-        node *n = create_node(vals[i]);
+        node *n = lnode(vals[i]);
         prev->next = n;
         prev = n;
     }
@@ -83,9 +80,9 @@ list * create_list(int vals[], int len)
 
 // Creates a node with val=val and appends it to the list
 // Theta(1) since list tail is tracked
-void append(list *l, int val)
+void lappend(list *l, int val)
 {
-    node *n = create_node(val);
+    node *n = lnode(val);
 
     l->tail->next = n;
     l->tail = n;
@@ -93,7 +90,7 @@ void append(list *l, int val)
 
 // Returns the address of the first node in the list whose val equals the val arg
 // O(n) at worst
-node * search(list *l, int val)
+node * lsearch(list *l, int val)
 {
     node *tmp = l->head;
 
@@ -105,7 +102,7 @@ node * search(list *l, int val)
 
 // Remove the first node in the list whose val matches argument val
 // O(n) at worst
-void unlink(list *l, int val)
+void lunlink(list *l, int val)
 {
     node *prev = NULL;
     node *tmp = l->head;
@@ -133,7 +130,7 @@ void unlink(list *l, int val)
 
 // Frees all nodes with val=val from list l
 // O(n)
-void unlink_all(list *l, int val)
+void lunlink_all(list *l, int val)
 {
     node *prev = NULL;
     node *curr = l->head;
@@ -166,7 +163,7 @@ void unlink_all(list *l, int val)
 
 // Prints the linked list originating at node *head
 // Theta(n)
-void printn(node *head)
+void lprintn(node *head)
 {
     if(head == NULL)
     {
@@ -185,7 +182,7 @@ void printn(node *head)
 }
 
 // Prints a list
-void print(list *l)
+void lprint(list *l)
 {
-    printn(l->head);
+    lprintn(l->head);
 }
