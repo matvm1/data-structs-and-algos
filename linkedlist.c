@@ -6,10 +6,16 @@ typedef struct node {
     struct node *next;
 } node;
 
+typedef struct list {
+    node *head;
+    node *tail;
+} list;
+
 node * create_node(int val);
-node * create_list(int vals[], int len);
-void print(node *head);
-void add(node *head, int val);
+list * create_list(int vals[], int len);
+void printn(node *head);
+void print(list *l);
+//void add(node *head, int val);
 /*void add(node *bt, int val);
 void remove(node *head, int val);
 void sort(node *head);
@@ -21,12 +27,13 @@ void free();*/
 int main (int argc, char *argv[])
 {
     // Create a linked list with one node
-    node *ll = create(4);
-    print(ll);
+    node *l0 = create_node(4);
+    printn(l0);
 
     int nums[] = {1, 3, 5, 7, 11};
-    node *ll1 = createm(nums, sizeof(nums)/sizeof(nums[0]));
-    print(ll1);
+    list *l1 = create_list(nums, sizeof(nums)/sizeof(nums[0]));
+    print(l1);
+    printn(l1->tail);
 }
 
 // Creates a linked list with a single node whose value is val
@@ -38,26 +45,29 @@ node * create_node(int val)
 
     return head;
 }
-
 // Creates a linked list with multiples node whose values are those stored in int val[]
 // Returns a pointer to the head of the list
-node * create_list(int vals[], int len)
+list * create_list(int vals[], int len)
 {
-    node *head = create(vals[0]);
+    node *head = create_node(vals[0]);
     node *prev = head;
     for(int i = 1; i < len; i++)
     {
-        node *n = create(vals[i]);
+        node *n = create_node(vals[i]);
         prev->next = n;
         prev = n;
     }
 
-    return head;
+    list *l = (list *)malloc(sizeof(list));
+    l->head = head;
+    l->tail = prev;
+
+    return l;
 }
 
-// Prints the linked list originating at head
+// Prints the linked list originating at node *head
 // Theta(n)
-void print(node *head)
+void printn(node *head)
 {
     node *tmp = head;
     printf("[");
@@ -67,4 +77,9 @@ void print(node *head)
         tmp = tmp->next;
     }
     printf("%i]\n", tmp->val);
+}
+
+void print(list *l)
+{
+    printn(l->head);
 }
