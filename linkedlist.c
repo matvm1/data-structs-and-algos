@@ -17,7 +17,6 @@ void printn(node *head);
 void print(list *l);
 void append(list *l, int val);
 node * search(list *l, int val);
-node * searchp(list *l, int val);
 void unlink(list *l, int val);
 /*void sort(node *head);
 void create_circular_link(node *head);
@@ -40,7 +39,8 @@ int main (int argc, char *argv[])
 
     printn(search(l1, 52));
 
-    //unlink(l1, 11);
+    unlink(l1, 11);
+    print(l1);
 }
 
 // Creates a linked list with a single node whose value is val
@@ -97,7 +97,29 @@ node * search(list *l, int val)
 // Remove the first node in the list whose val matches argument val
 void unlink(list *l, int val)
 {
+    node *prev = NULL;
+    node *tmp = l->head;
 
+    while(tmp != NULL && tmp->val != val)
+    {
+        prev = tmp;
+        tmp = tmp->next;
+    }
+
+    // Not found
+    if(tmp == NULL)
+        return;
+
+    if(tmp == l->head)
+    {
+        l->head = tmp->next;
+    }
+    else
+    {
+        prev->next = tmp->next;
+    }
+
+    free(tmp);
 }
 
 // Prints the linked list originating at node *head
