@@ -19,7 +19,7 @@ void lappend(list *l, int val);
 node * lsearch(list *l, int val);
 void lunlink(list *l, int val);
 void lunlink_all(list *l, int val);
-void reverse(node *head);
+void lreverse(list *l);
 /*void free();*/
 
 int main(int argc, char *argv[])
@@ -44,6 +44,10 @@ int main(int argc, char *argv[])
     lappend(l, 1);
     lunlink_all(l, 15);
     lunlink_all(l, 1);
+    lprint(l);
+    lprintn(l->tail);
+
+    lreverse(l);
     lprint(l);
     lprintn(l->tail);
 }
@@ -159,6 +163,25 @@ void lunlink_all(list *l, int val)
             curr = curr->next;
         }
     }
+}
+
+// Reverses the list
+void lreverse(list *l)
+{
+    node *prev = NULL;
+    node *curr = l->head;
+    l->tail = curr;
+
+    // Point the curr node to the prev, whilst maintining reference to the rest of the list, and move forward
+    while(curr != NULL)
+    {
+        node *tmp = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = tmp;
+    }
+
+    l->head = prev;
 }
 
 // Prints the linked list originating at node *head
