@@ -16,9 +16,10 @@ list * create_list(int vals[], int len);
 void printn(node *head);
 void print(list *l);
 void append(list *l, int val);
-node *search(list *l, int val);
-/*void remove(node *head, int val);
-void sort(node *head);
+node * search(list *l, int val);
+node * searchp(list *l, int val);
+void unlink(list *l, int val);
+/*void sort(node *head);
 void create_circular_link(node *head);
 void remove_ciruclar_link(node *head);
 void reverse(node *head);
@@ -30,14 +31,16 @@ int main (int argc, char *argv[])
     node *l0 = create_node(4);
     printn(l0);
 
-    int nums[] = {1, 3, 5, 7, 11};
+    int nums[] = {1, 3, 5, 7, 11, -1, -10, -100, 11};
     list *l1 = create_list(nums, sizeof(nums)/sizeof(nums[0]));
     print(l1);
 
     append(l1, 15);
     print(l1);
 
-    printn(search(l1, 5));
+    printn(search(l1, 52));
+
+    //unlink(l1, 11);
 }
 
 // Creates a linked list with a single node whose value is val
@@ -79,26 +82,34 @@ void append(list *l, int val)
     l->tail->next = n;
 }
 
-// Returns the address of the first nodein the list whose val equals the val arg
+// Returns the address of the first node in the list whose val equals the val arg
 // O(n) at worst
-node *search(list *l, int val)
+node * search(list *l, int val)
 {
     node *tmp = l->head;
 
-    while(tmp != NULL)
-    {
-        if(tmp->val == val)
-            return tmp;
+    while(tmp != NULL && tmp->val != val)
         tmp = tmp->next;
-    }
 
-    return NULL;
+    return tmp;
+}
+
+// Remove the first node in the list whose val matches argument val
+void unlink(list *l, int val)
+{
+
 }
 
 // Prints the linked list originating at node *head
 // Theta(n)
 void printn(node *head)
 {
+    if(head == NULL)
+    {
+        printf("Empty list\n");
+        return;
+    }
+
     node *tmp = head;
     printf("[");
     while(tmp->next != NULL)
