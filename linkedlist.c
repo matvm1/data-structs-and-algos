@@ -15,9 +15,9 @@ node * create_node(int val);
 list * create_list(int vals[], int len);
 void printn(node *head);
 void print(list *l);
-//void add(node *head, int val);
-/*void add(node *bt, int val);
-void remove(node *head, int val);
+void append(list *l, int val);
+node *search(list *l, int val);
+/*void remove(node *head, int val);
 void sort(node *head);
 void create_circular_link(node *head);
 void remove_ciruclar_link(node *head);
@@ -33,7 +33,11 @@ int main (int argc, char *argv[])
     int nums[] = {1, 3, 5, 7, 11};
     list *l1 = create_list(nums, sizeof(nums)/sizeof(nums[0]));
     print(l1);
-    printn(l1->tail);
+
+    append(l1, 15);
+    print(l1);
+
+    printn(search(l1, 5));
 }
 
 // Creates a linked list with a single node whose value is val
@@ -45,6 +49,7 @@ node * create_node(int val)
 
     return head;
 }
+
 // Creates a linked list with multiples node whose values are those stored in int val[]
 // Returns a pointer to the head of the list
 list * create_list(int vals[], int len)
@@ -65,6 +70,31 @@ list * create_list(int vals[], int len)
     return l;
 }
 
+// Creates a node with val=val and appends it to the list
+// Theta(1) since list tail is tracked
+void append(list *l, int val)
+{
+    node *n = create_node(val);
+
+    l->tail->next = n;
+}
+
+// Returns the address of the first nodein the list whose val equals the val arg
+// O(n) at worst
+node *search(list *l, int val)
+{
+    node *tmp = l->head;
+
+    while(tmp != NULL)
+    {
+        if(tmp->val == val)
+            return tmp;
+        tmp = tmp->next;
+    }
+
+    return NULL;
+}
+
 // Prints the linked list originating at node *head
 // Theta(n)
 void printn(node *head)
@@ -79,6 +109,7 @@ void printn(node *head)
     printf("%i]\n", tmp->val);
 }
 
+// Prints a list
 void print(list *l)
 {
     printn(l->head);
