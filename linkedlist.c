@@ -9,7 +9,7 @@ typedef struct node {
 typedef struct list {
     node *head;
     node *tail;
-    int len;
+    long len;
 } list;
 
 node * lnode(int val);
@@ -18,43 +18,61 @@ void lprintn(node *head);
 void lprint(list *l);
 void lappend(list *l, int val);
 node * lsearch(list *l, int val);
-void lunlink(list *l, int val);
-void lunlink_all(list *l, int val);
+void ldelete(list *l, node *prev, node *node);
+void ldeletep(list *l, long p);
+void ldeletev(list *l, int val);
+void ldeletea(list *l, int val);
+void lsettail(list *l, node *n);
 void lreverse(list *l);
 void lfree(list *l);
 
+
 int main(int argc, char *argv[])
 {
-    // Create a linked list with one node
-    node *n = lnode(4);
-    lprintn(n);
-    free(n);
-
     int nums[] = {1, 3, 5, 7, 11, -1, -10, -100, 11, 3, 1, 1};
+    printf("Creating list ");
     list *l = lcreate(nums, sizeof(nums)/sizeof(nums[0]));
     lprint(l);
 
+    printf("Appending 15: ");
     lappend(l, 15);
     lprint(l);
 
+    printf("Searching for 52: ");
     lprintn(lsearch(l, 52));
 
-    lappend(l, 33);
-    lunlink(l, 33);
-    lprint(l);
-
-    lappend(l, 1);
-    lunlink_all(l, 15);
-    lunlink_all(l, 1);
-    lprint(l);
-    lprintn(l->tail);
-
+    printf("Reversing the list: ");
     lreverse(l);
     lprint(l);
-    lprintn(l->tail);
 
-    lfree(l);
+    printf("Append and then delete 33: ");
+    lappend(l, 33);
+    ldeletev(l, 33);
     lprint(l);
+
+    printf("Deleting pos 0: ");
+    ldeletep(l, 0);
+    lprint(l);
+
+    printf("Deleting pos mid: ");
+    ldeletep(l, l->len/2);
+    lprint(l);
+
+    printf("Deleting pos len: ");
+    ldeletep(l, l->len - 1);
+    lprint(l);
+
+    printf("Delete all 1s: ");
+    ldeletea(l, 1);
+    lprint(l);
+
+    printf("Delete all 11s: ");
+    ldeletea(l, 11);
+    lprint(l);
+
+    printf("Freeing list: ");
+    lfree(l);
+    lprint(l);    
 }
 
 // Creates a linked list with a single node whose value is val
@@ -82,7 +100,7 @@ list * lcreate(int vals[], int len)
 
     list *l = (list *)malloc(sizeof(list));
     l->head = head;
-    l->tail = prev;
+    lsettail(l, prev);
     l->len = len;
 
     return l;
@@ -95,7 +113,7 @@ void lappend(list *l, int val)
     node *n = lnode(val);
 
     l->tail->next = n;
-    l->tail = n;
+    lsettail(l, n);
     l->len++;
 }
 
@@ -111,38 +129,61 @@ node * lsearch(list *l, int val)
     return tmp;
 }
 
+// Unlinks *node from the list
+void ldelete(list *l, node *prev, node *node)
+{
+    if(node == l->head)
+        l->head = node->next;
+    else if(node == l->tail)
+        lsettail(l, prev);
+    else
+        prev->next = node->next;
+
+    free(node);
+    l->len--;
+}
+
+// Unlinks the pth node in the list (where 0 <= p < l->len)
+void ldeletep(list *l, long p)
+{
+    // Invalid positions
+    if(p < 0 || p > l->len - 1)
+        return;
+    
+    node *prev = NULL;
+    node *curr = l->head;
+    for(int i = 0; i < p; i++)
+    {
+        prev = curr;
+        curr = curr->next;
+    }
+
+    ldelete(l, prev, curr);
+}
+
 // Remove the first node in the list whose val matches argument val
 // O(n) at worst
-void lunlink(list *l, int val)
+void ldeletev(list *l, int val)
 {
     node *prev = NULL;
-    node *tmp = l->head;
+    node *curr = l->head;
 
-    while(tmp != NULL && tmp->val != val)
+    while(curr != NULL && curr->val != val)
     {
-        prev = tmp;
-        tmp = tmp->next;
+        prev = curr;
+        curr = curr->next;
     }
 
     // Not found
-    if(tmp == NULL)
+    if(curr == NULL)
         return;
-
-    if(tmp == l->head)
-        l->head = tmp->next;
-    else
-        prev->next = tmp->next;
-
-    if(tmp == l->tail)
-        l->tail = prev;
     
-    free(tmp);
-    l->len--;
+    ldelete(l, prev, curr);
 }
 
 // Frees all nodes with val=val from list l
 // O(n)
-void lunlink_all(list *l, int val)
+void ldeletea(list *l, int val)
 {
     node *prev = NULL;
     node *curr = l->head;
@@ -151,6 +192,7 @@ void lunlink_all(list *l, int val)
     {
         // If match found, update curr according to its position in the list
         // Prev stays as is since we need to check for a match against curr in the next iter
+        // Could use ldelete() here but then would need additional condition to repoint curr
         if(curr->val == val)
         {
             node *tmp = curr;
@@ -160,7 +202,7 @@ void lunlink_all(list *l, int val)
                 curr = prev->next = curr->next;
 
             if(tmp == l->tail)
-                l->tail = prev;
+                lsettail(l, prev);
 
             free(tmp);
             l->len--;
@@ -193,6 +235,14 @@ void lreverse(list *l)
     l->head = prev;
 }
 
+// Sets the tail of the list to node n
+void lsettail(list *l, node *n)
+{
+    l->tail = n;
+    // Ensure that prev doesn't point to garbage data
+    n->next = NULL;
+}
+
 // Frees all nodes in the list and the list itself
 void lfree(list *l)
 {
@@ -204,6 +254,7 @@ void lfree(list *l)
         free(tmp);
         tmp = l->head;
     }
+    l->len = 0;
     free(l);
 }
 
@@ -235,6 +286,6 @@ void lprint(list *l)
         printf("NULL list\n");
         return;
     }
-    printf("{len: %i} ", l->len);
+    printf("{len: %li} ", l->len);
     lprintn(l->head);
 }
