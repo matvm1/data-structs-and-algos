@@ -9,6 +9,7 @@ typedef struct node {
 typedef struct list {
     node *head;
     node *tail;
+    int len;
 } list;
 
 node * lnode(int val);
@@ -20,13 +21,14 @@ node * lsearch(list *l, int val);
 void lunlink(list *l, int val);
 void lunlink_all(list *l, int val);
 void lreverse(list *l);
-/*void free();*/
+void lfree(list *l);
 
 int main(int argc, char *argv[])
 {
     // Create a linked list with one node
     node *n = lnode(4);
     lprintn(n);
+    free(n);
 
     int nums[] = {1, 3, 5, 7, 11, -1, -10, -100, 11, 3, 1, 1};
     list *l = lcreate(nums, sizeof(nums)/sizeof(nums[0]));
@@ -50,6 +52,9 @@ int main(int argc, char *argv[])
     lreverse(l);
     lprint(l);
     lprintn(l->tail);
+
+    lfree(l);
+    lprint(l);
 }
 
 // Creates a linked list with a single node whose value is val
@@ -78,6 +83,7 @@ list * lcreate(int vals[], int len)
     list *l = (list *)malloc(sizeof(list));
     l->head = head;
     l->tail = prev;
+    l->len = len;
 
     return l;
 }
@@ -90,6 +96,7 @@ void lappend(list *l, int val)
 
     l->tail->next = n;
     l->tail = n;
+    l->len++;
 }
 
 // Returns the address of the first node in the list whose val equals the val arg
@@ -130,6 +137,7 @@ void lunlink(list *l, int val)
         l->tail = prev;
     
     free(tmp);
+    l->len--;
 }
 
 // Frees all nodes with val=val from list l
@@ -155,6 +163,7 @@ void lunlink_all(list *l, int val)
                 l->tail = prev;
 
             free(tmp);
+            l->len--;
         }
         // No, match, keep chucking along
         else
@@ -184,6 +193,19 @@ void lreverse(list *l)
     l->head = prev;
 }
 
+void lfree(list *l)
+{
+    node *tmp = l->head;
+
+    while(l->head != NULL)
+    {
+        l->head = l->head->next;
+        free(tmp);
+        tmp = l->head;
+    }
+    free(l);
+}
+
 // Prints the linked list originating at node *head
 // Theta(n)
 void lprintn(node *head)
@@ -207,5 +229,11 @@ void lprintn(node *head)
 // Prints a list
 void lprint(list *l)
 {
+    if(l == NULL)
+    {
+        printf("NULL list\n");
+        return;
+    }
+    printf("{len: %i} ", l->len);
     lprintn(l->head);
 }
