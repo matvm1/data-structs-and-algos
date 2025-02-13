@@ -193,6 +193,7 @@ void lreverse(list *l)
     l->head = prev;
 }
 
+// Frees all nodes in the list and the list itself
 void lfree(list *l)
 {
     node *tmp = l->head;
