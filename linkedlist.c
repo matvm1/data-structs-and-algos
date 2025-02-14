@@ -89,6 +89,9 @@ list * lcreate(int vals[], long len, char mode)
 // Creates a node with val=val and prepends it to the list
 void lprepend(list *l, int val)
 {
+    if(l == NULL)
+        return;
+
     node *n = lnode(val);
     if(n == NULL)
         return;
@@ -111,6 +114,9 @@ void lprepend(list *l, int val)
 // Theta(1) since list tail is tracked
 void lappend(list *l, int val)
 {
+    if(l == NULL)
+        return;
+
     node *n = lnode(val);
     if(n == NULL)
         return;
@@ -148,6 +154,9 @@ node * lsearch(list *l, int val)
 // Unlinks *node from the list
 void ldelete(list *l, node *prev, node *node)
 {
+    if(l == NULL)
+        return;
+
     if(node == l->head)
         lsethead(l, node->next);
     else if(node == l->tail)
@@ -202,6 +211,9 @@ void ldeletev(list *l, int val)
 // O(n)
 void ldeletea(list *l, int val)
 {
+    if(l == NULL)
+        return;
+
     node *prev = NULL;
     node *curr = l->head;
 
