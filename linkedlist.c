@@ -96,7 +96,11 @@ node * lsearch(list *l, int val)
 void ldelete(list *l, node *prev, node *node)
 {
     if(node == l->head)
+    {
         l->head = node->next;
+        if(l->iscircular)
+            l->tail->next = l->head;
+    }
     else if(node == l->tail)
         lsettail(l, prev);
     else
