@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-    int nums[] = {1, 3, 3, 5, 7, 11, -1, -10, -100, 11, 3, 1, 1};
+    int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
     printf("Creating list0: ");
     list *l0 = lcreate(nums, sizeof(nums)/sizeof(nums[0]));
     lprint(l0);
@@ -89,11 +89,25 @@ int main(int argc, char *argv[])
     ldeletep(l1, l1->len - 1);
     clprint(l1, l1->len + 1);
 
-    printf("Delete all 3s:\n    l0: ");
+    printf("Delete all 3s:\n   l0: ");
     ldeletea(l0, 3);
     lprint(l0);
     printf("   l1: ");
     ldeletea(l1, 3);
+    clprint(l1, l1->len + 1);
+
+    printf("Delete all 1s:\n   l0: ");
+    ldeletea(l0, 1);
+    lprint(l0);
+    printf("   l1: ");
+    ldeletea(l1, 1);
+    clprint(l1, l1->len + 1);
+
+    printf("Delete all 4s:\n   l0: ");
+    ldeletea(l0, 4);
+    lprint(l0);
+    printf("   l1: ");
+    ldeletea(l1, 4);
     clprint(l1, l1->len + 1);
 
     /*printf("Delete all 11s: ");

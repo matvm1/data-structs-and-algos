@@ -155,7 +155,7 @@ void ldeletea(list *l, int val)
     node *prev = NULL;
     node *curr = l->head;
 
-    while(curr != NULL)
+    while(curr != l->tail)
     {
         // If match found, update curr according to its position in the list
         // Prev stays as is since we need to check for a match against curr in the next iter
@@ -164,12 +164,13 @@ void ldeletea(list *l, int val)
         {
             node *tmp = curr;
             if(curr == l->head)
+            {
                 curr = l->head = curr->next;
+                if(l->iscircular)
+                    l->tail->next = curr;
+            }
             else
                 curr = prev->next = curr->next;
-
-            if(tmp == l->tail)
-                lsettail(l, prev);
 
             free(tmp);
             l->len--;
@@ -180,6 +181,14 @@ void ldeletea(list *l, int val)
             prev = curr;
             curr = curr->next;
         }
+    }
+
+    //Check the tail
+    if(curr->val == val)
+    {
+        lsettail(l, prev);
+        free(curr);
+        l->len--;
     }
 }
 
