@@ -68,47 +68,54 @@ int main(int argc, char *argv[])
     ldeletev(l1, 33);
     clprint(l1, l1->len + 1);
 
-    printf("Deleting pos 0:\n   l0:");
+    printf("Deleting pos 0:\n    l0:");
     ldeletep(l0, 0);
     lprint(l0);
-    printf("   l1: ");
+    printf("    l1: ");
     ldeletep(l1, 0);
     clprint(l1, l1->len + 1);
 
-    printf("Deleting pos mid:\n   l0:");
+    printf("Deleting pos mid:\n    l0:");
     ldeletep(l0, l0->len/2);
     lprint(l0);
-    printf("   l1: ");
+    printf("    l1: ");
     ldeletep(l1, l1->len/2);
     clprint(l1, l1->len + 1);
 
-    printf("Deleting pos len:\n   l0:");
+    printf("Deleting pos len:\n    l0:");
     ldeletep(l0, l0->len - 1);
     lprint(l0);
-    printf("   l1: ");
+    printf("    l1: ");
     ldeletep(l1, l1->len - 1);
     clprint(l1, l1->len + 1);
 
-    printf("Delete all 3s:\n   l0: ");
+    printf("Delete all 3s:\n    l0: ");
     ldeletea(l0, 3);
     lprint(l0);
-    printf("   l1: ");
+    printf("    l1: ");
     ldeletea(l1, 3);
     clprint(l1, l1->len + 1);
 
-    printf("Delete all 1s:\n   l0: ");
+    printf("Delete all 1s:\n    l0: ");
     ldeletea(l0, 1);
     lprint(l0);
-    printf("   l1: ");
+    printf("    l1: ");
     ldeletea(l1, 1);
     clprint(l1, l1->len + 1);
 
-    printf("Delete all 4s:\n   l0: ");
+    printf("Delete all 4s:\n    l0: ");
     ldeletea(l0, 4);
     lprint(l0);
-    printf("   l1: ");
+    printf("    l1: ");
     ldeletea(l1, 4);
     clprint(l1, l1->len + 1);
+
+    printf("Removing circular link from l1:\n    l1: ");
+    lremovecirc(l1);
+    clprint(l1, l1->len + 1);
+    printf("Printing l1 using lprint:\n    l1: ");
+    lprint(l1);
+
 
     printf("Freeing lists:\n    l0: ");
     lfree(l0);

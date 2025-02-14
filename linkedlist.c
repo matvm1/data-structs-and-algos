@@ -27,6 +27,7 @@ void lfree(list *l);
 void lprint(list *l);
 void lprintn(node *node);
 void lmakecirc(list *l);
+void lremovecirc(list *l);
 void clprint(list *l, int m);
 void clprintn(list *l, node *n, int m);
 
@@ -291,11 +292,21 @@ void lprintn(node *n)
     printf("%i]\n", tmp->val);
 }
 
-// Makes the list a circular linked list
+// Makes a list a circular linked list
 void lmakecirc(list *l)
 {
     l->iscircular = 1;
     l->tail->next = l->head;
+}
+
+// Removes a circular link from a list
+void lremovecirc(list *l)
+{
+    if(l->iscircular && l->tail->next == l->head)
+    {
+        l->iscircular = 0;
+        l->tail->next = NULL;
+    }
 }
 
 // Prints m nodes from a circular linked list
