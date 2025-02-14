@@ -107,6 +107,7 @@ void ldelete(list *l, node *prev, node *node)
         prev->next = node->next;
 
     free(node);
+    node = NULL;
     l->len--;
 }
 
@@ -173,6 +174,7 @@ void ldeletea(list *l, int val)
                 curr = prev->next = curr->next;
 
             free(tmp);
+            tmp = NULL;
             l->len--;
         }
         // No, match, keep chucking along
@@ -188,6 +190,7 @@ void ldeletea(list *l, int val)
     {
         lsettail(l, prev);
         free(curr);
+        curr = NULL;
         l->len--;
     }
 }
@@ -237,14 +240,18 @@ void lfree(list *l)
 {
     node *tmp = l->head;
 
-    while(l->head != NULL)
+    while(tmp != l->tail)
     {
         l->head = l->head->next;
         free(tmp);
         tmp = l->head;
     }
+    free(l->tail);
     l->len = 0;
     free(l);
+    tmp = NULL;
+    l->head = NULL;
+    l->tail = NULL;
 }
 
 // Prints a list

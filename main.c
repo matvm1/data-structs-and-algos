@@ -110,11 +110,10 @@ int main(int argc, char *argv[])
     ldeletea(l1, 4);
     clprint(l1, l1->len + 1);
 
-    /*printf("Delete all 11s: ");
-    ldeletea(l, 11);
-    lprint(l);
-
-    printf("Freeing list: ");
-    lfree(l);
-    lprint(l);  */  
+    printf("Freeing lists:\n    l0: ");
+    lfree(l0);
+    lprint(l0);
+    printf("    l1: ");
+    lfree(l1);
+    lprint(l1);
 }
