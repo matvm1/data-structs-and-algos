@@ -82,8 +82,11 @@ node * lsearch(list *l, int val)
 {
     node *tmp = l->head;
 
-    while(tmp != NULL && tmp->val != val)
+    while(tmp != l->tail && tmp->val != val)
         tmp = tmp->next;
+
+    if(tmp->val != val)
+        return NULL;
 
     return tmp;
 }
@@ -246,7 +249,7 @@ void lprintn(node *n)
 {
     if(n == NULL)
     {
-        printf("NULL list\n");
+        printf("NULL node\n");
         return;
     }
 
@@ -291,6 +294,12 @@ void clprint(list *l, int m)
 // If l is a non-NULL list, pretty prints the end of the list.
  void clprintn(list *l, node *n, int m)
  {
+    if(n == NULL)
+    {
+        printf("NULL node\n");
+        return;
+    }
+
     node *prev = NULL;
     node *curr = n;
 

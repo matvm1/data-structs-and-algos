@@ -3,25 +3,42 @@
 int main(int argc, char *argv[])
 {
     int nums[] = {1, 3, 5, 7, 11, -1, -10, -100, 11, 3, 1, 1};
-    printf("Creating list: ");
-    list *l = lcreate(nums, sizeof(nums)/sizeof(nums[0]));
-    lprint(l);
+    printf("Creating list0: ");
+    list *l0 = lcreate(nums, sizeof(nums)/sizeof(nums[0]));
+    lprint(l0);
 
-    printf("Making list circular: ");
-    lmakecirc(l);
-    clprint(l, l->len * 2 + 1);
+    printf("Creating list1: ");
+    list *l1 = lcreate(nums, sizeof(nums)/sizeof(nums[0]));
+    lprint(l1);
 
-    printf("Printing list without reference in first arg: ");
-    clprintn(NULL, l->head, l->len * 2 + 1);
+    printf("Making list1 circular: ");
+    lmakecirc(l1);
+    clprint(l1, l1->len * 2 + 1);
 
-    printf("Appending 15: ");
-    //lappend(l, 15);
-    lprint(l);
+    printf("Printing list1 without reference in first arg: ");
+    clprintn(NULL, l1->head, l1->len * 2 + 1);
 
-    /*printf("Searching for 52: ");
-    lprintn(lsearch(l, 52));
+    printf("Appending 15 to both:\n");
+    lappend(l0, 15);
+    printf("    l0: ");
+    lprint(l0);
+    lappend(l1, 15);
+    printf("    l1: ");
+    clprint(l1, l1->len + 1);
 
-    printf("Reversing the list: ");
+    printf("Searching for -100 in l0: ");
+    lprintn(lsearch(l0, -100));
+
+    printf("Searching for -100 in l1: ");
+    clprintn(NULL, lsearch(l1, -100), 1);
+
+    printf("Searching for 52 in l0: ");
+    lprintn(lsearch(l0, 52));
+
+    printf("Searching for 52 in l1: ");
+    clprintn(NULL, lsearch(l1, 52), 1);
+
+    /*printf("Reversing the list: ");
     lreverse(l);
     lprint(l);
 
