@@ -127,10 +127,19 @@ void singlylinkedlists()
     printf("Creating empty list l2:\n    l2: ");
     list *l2 = lcreaten();
     lprint(l2);
-    printf("Appending values to l2:\n     l2: ");
+    printf("Appending 16 vals to l2:\n    l2: ");
     for(int i = 0; i < 16; i++)
         lappend(l2, i);
     lprint(l2);
+
+    printf("Creating empty list l3, prepending 16 vals, appending 47, and reversing:\n    l3: ");
+    list *l3 = lcreaten();
+    for(int i = 0; i < 16; i++)
+        lprepend(l3, i);
+    lappend(l3, 47);
+    lreverse(l3);
+    lmakecirc(l3);
+    clprint(l3, l3->len * 2 + 1);
 
     printf("Freeing lists:\n    l0: ");
     lfree(l0);
@@ -138,6 +147,12 @@ void singlylinkedlists()
     printf("    l1: ");
     lfree(l1);
     lprint(l1);
+    printf("    l2: ");
+    lfree(l2);
+    lprint(l2);
+    printf("    l3: ");
+    lfree(l3);
+    lprint(l3);
 }
 
 void stacks()

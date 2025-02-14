@@ -16,12 +16,14 @@ typedef struct list {
 node * lnode(int val);
 list * lcreaten();
 list * lcreate(int vals[], long len);
+void lprepend(list *l, int val);
 void lappend(list *l, int val);
 node * lsearch(list *l, int val);
 void ldelete(list *l, node *prev, node *node);
 void ldeletep(list *l, long p);
 void ldeletev(list *l, int val);
 void ldeletea(list *l, int val);
+void lsethead(list *l, node *n);
 void lsettail(list *l, node *n);
 void lreverse(list *l);
 void lfree(list *l);
@@ -94,6 +96,27 @@ list * lcreate(int vals[], long len)
     return l;
 }
 
+// Creates a node with val=val and prepends it to the list
+void lprepend(list *l, int val)
+{
+    node *n = lnode(val);
+    if(n == NULL)
+        return;
+
+    // Check if list is empty
+    if(l->head == NULL)
+    {
+        l->head = n;
+        lsettail(l, n);
+        l->len++;
+        return;
+    }
+
+    n->next = l->head;
+    lsethead(l, n);
+    l->len++;
+}
+
 // Creates a node with val=val and appends it to the list
 // Theta(1) since list tail is tracked
 void lappend(list *l, int val)
@@ -136,11 +159,7 @@ node * lsearch(list *l, int val)
 void ldelete(list *l, node *prev, node *node)
 {
     if(node == l->head)
-    {
-        l->head = node->next;
-        if(l->iscircular)
-            l->tail->next = l->head;
-    }
+        lsethead(l, node->next);
     else if(node == l->tail)
         lsettail(l, prev);
     else
@@ -206,9 +225,8 @@ void ldeletea(list *l, int val)
             node *tmp = curr;
             if(curr == l->head)
             {
-                curr = l->head = curr->next;
-                if(l->iscircular)
-                    l->tail->next = curr;
+                lsethead(l, curr->next);
+                curr = l->head;
             }
             else
                 curr = prev->next = curr->next;
@@ -255,14 +273,18 @@ void lreverse(list *l)
     // Reverse the tail pointer
     curr->next = prev;
     
-    l->head = curr;
+    lsethead(l, curr);
+}
 
+// Sets the head of the list to node n
+void lsethead(list *l, node *n)
+{
+    l->head = n;
     if(l->iscircular)
         l->tail->next = l->head;
 }
 
 // Sets the tail of the list to node n
-// Assumes l is not an empty list
 void lsettail(list *l, node *n)
 {
     if(l->iscircular)
