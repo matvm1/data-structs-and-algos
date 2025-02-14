@@ -1,4 +1,6 @@
+#include "structs.h"
 #include "linkedlist.c"
+#include "stack.c"
 
 void singlylinkedlists();
 void stacks();
@@ -11,24 +13,23 @@ int main(int argc, char *argv[])
 void singlylinkedlists()
 {
     int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
-    printf("Creating list0: ");
-    list *l0 = lcreate(nums, sizeof(nums)/sizeof(nums[0]));
+    printf("Creating list0 from array:\n    l0: ");
+    list *l0 = lcreate(nums, sizeof(nums)/sizeof(nums[0]), 'a');
     lprint(l0);
 
-    printf("Creating list1: ");
-    list *l1 = lcreate(nums, sizeof(nums)/sizeof(nums[0]));
+    printf("Creating list1 from array:\n    l1: ");
+    list *l1 = lcreate(nums, sizeof(nums)/sizeof(nums[0]), 'a');
     lprint(l1);
 
-    printf("Making list1 circular: ");
+    printf("Making list1 circular:\n    l1: ");
     lmakecirc(l1);
     clprint(l1, l1->len * 2 + 1);
 
-    printf("Printing list1 without reference in first arg: ");
+    printf("Printing list1 without reference in first arg:\n    l1: ");
     clprintn(NULL, l1->head, l1->len * 2 + 1);
 
-    printf("Appending 15 to both:\n");
+    printf("Appending 15 to both:\n     l0: ");
     lappend(l0, 15);
-    printf("    l0: ");
     lprint(l0);
     lappend(l1, 15);
     printf("    l1: ");
@@ -141,21 +142,29 @@ void singlylinkedlists()
     lmakecirc(l3);
     clprint(l3, l3->len * 2 + 1);
 
+    printf("Creating empty list and appending 1 val:\n    l4: ");
+    list *l4 = lcreaten();
+    lappend(l4, 500);
+    lreverse(l4);
+    lprint(l4);
+
+    printf("Deleting from list with 1 val:\n    l4: ");
+    ldeletep(l4, 0);
+    lprint(l4);
+
     printf("Freeing lists:\n    l0: ");
-    lfree(l0);
+    lfree(&l0);
     lprint(l0);
     printf("    l1: ");
-    lfree(l1);
+    lfree(&l1);
     lprint(l1);
     printf("    l2: ");
-    lfree(l2);
+    lfree(&l2);
     lprint(l2);
     printf("    l3: ");
-    lfree(l3);
+    lfree(&l3);
     lprint(l3);
-}
-
-void stacks()
-{
-    int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
+    printf("    l4: ");
+    lfree(&l4);
+    lprint(l4);
 }
