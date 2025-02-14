@@ -11,11 +11,14 @@ int main(int argc, char *argv[])
     lmakecirc(l);
     clprint(l, l->len * 2 + 1);
 
-    /*printf("Appending 15: ");
-    lappend(l, 15);
+    printf("Printing list without reference in first arg: ");
+    clprintn(NULL, l->head, l->len * 2 + 1);
+
+    printf("Appending 15: ");
+    //lappend(l, 15);
     lprint(l);
 
-    printf("Searching for 52: ");
+    /*printf("Searching for 52: ");
     lprintn(lsearch(l, 52));
 
     printf("Reversing the list: ");

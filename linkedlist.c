@@ -233,7 +233,11 @@ void lprint(list *l)
     }
 
     printf("{len: %li} ", l->len);
-    lprintn(l->head);
+
+    if(!l->iscircular)
+        lprintn(l->head);
+    else
+        clprint(l, l->len);
 }
 
 // Prints the linked list originating at node *head
@@ -242,7 +246,7 @@ void lprintn(node *n)
 {
     if(n == NULL)
     {
-        printf("Empty list\n");
+        printf("NULL list\n");
         return;
     }
 
@@ -283,7 +287,8 @@ void clprint(list *l, int m)
     clprintn(l, l->head, m);
 }
 
-
+// Prints m nodesthat trail n.
+// If l is a non-NULL list, pretty prints the end of the list.
  void clprintn(list *l, node *n, int m)
  {
     node *prev = NULL;
@@ -292,9 +297,9 @@ void clprint(list *l, int m)
     printf("[");
     for(int i = 0; i < m - 1; i++)
     {   
-        if(curr == l->tail)
+        if(l != NULL && curr == l->tail)
             printf("%i | ", curr->val);
-        else if (curr != l->tail)
+        else
             printf("%i, ", curr->val);
         prev = curr;
         curr = curr->next;
