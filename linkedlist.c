@@ -45,7 +45,7 @@ node * lnode(int val)
     return head;
 }
 
-// Creates an empty list
+// Creates an empty, non-circular, list
 list * lcreaten()
 {
     list *l = (list *)malloc(sizeof(list));
@@ -54,6 +54,8 @@ list * lcreaten()
     
     l->head = NULL;
     l->tail = NULL;
+    l->len = 0;
+    l->iscircular = 0;
 
     return l;
 }
@@ -98,7 +100,15 @@ void lappend(list *l, int val)
 {
     node *n = lnode(val);
     if(n == NULL)
-        return NULL;
+        return;
+
+    // Check if list is empty
+    if(l->head == NULL)
+    {
+        l->head = n;
+        lsettail(l, n);
+        return;
+    }
 
     l->tail->next = n;
     lsettail(l, n);
@@ -251,13 +261,11 @@ void lreverse(list *l)
 }
 
 // Sets the tail of the list to node n
+// Assumes l is not an empty list
 void lsettail(list *l, node *n)
 {
     if(l->iscircular)
-    {
-        l->tail->next = n;
         n->next = l->head;
-    }
     else
         // Ensure tail->next doesn't point to garbage data
         n->next = NULL;
