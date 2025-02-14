@@ -85,6 +85,7 @@ node * lsearch(list *l, int val)
     while(tmp != l->tail && tmp->val != val)
         tmp = tmp->next;
 
+    // Still need to check in case tmp = l->tail
     if(tmp->val != val)
         return NULL;
 
@@ -183,18 +184,25 @@ void lreverse(list *l)
 {
     node *prev = NULL;
     node *curr = l->head;
+    node *tail = l->tail;
+
     l->tail = curr;
 
     // Point the curr node to the prev, whilst maintining reference to the rest of the list, and move forward
-    while(curr != NULL)
+    while(curr != tail)
     {
         node *tmp = curr->next;
         curr->next = prev;
         prev = curr;
         curr = tmp;
     }
+    // Reverse the tail pointer
+    curr->next = prev;
+    
+    l->head = curr;
 
-    l->head = prev;
+    if(l->iscircular)
+        l->tail->next = l->head;
 }
 
 // Sets the tail of the list to node n
@@ -240,7 +248,7 @@ void lprint(list *l)
     if(!l->iscircular)
         lprintn(l->head);
     else
-        clprint(l, l->len);
+        clprintn(l, l->head, l->len);
 }
 
 // Prints the linked list originating at node *head

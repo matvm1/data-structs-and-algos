@@ -38,11 +38,16 @@ int main(int argc, char *argv[])
     printf("Searching for 52 in l1: ");
     clprintn(NULL, lsearch(l1, 52), 1);
 
-    /*printf("Reversing the list: ");
-    lreverse(l);
-    lprint(l);
+    printf("Reversing list0: ");
+    lreverse(l0);
+    lprint(l0);
 
-    printf("Append and then delete 33: ");
+    printf("Reversing list1: ");
+    lreverse(l1);
+    lprint(l1);
+    clprint(l1, l1->len * 2 + 1);
+
+    /*printf("Append and then delete 33: ");
     lappend(l, 33);
     ldeletev(l, 33);
     lprint(l);
