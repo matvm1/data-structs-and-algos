@@ -15,7 +15,7 @@ typedef struct list {
 
 node * lnode(int val);
 list * lcreaten();
-list * lcreate(int vals[], long len);
+list * lcreate(int vals[], long len, char mode);
 void lprepend(list *l, int val);
 void lappend(list *l, int val);
 node * lsearch(list *l, int val);
@@ -63,35 +63,25 @@ list * lcreaten()
 }
 
 // Creates a non-circular linked list with multiples node whose values are those stored in int val[]
+// mode: a - appends values, p - prepends values
 // Returns a pointer to the head of the list
-list * lcreate(int vals[], long len)
+list * lcreate(int vals[], long len, char mode)
 {
+    if(mode != 'a' && mode != 'p')
+        return NULL;
+
     if(len < 1)
         return NULL;
 
-    node *head = lnode(vals[0]);
-    if(head == NULL)
-        return NULL;
-
-    node *prev = head;
-    for(int i = 1; i < len; i++)
-    {
-        node *n = lnode(vals[i]);
-        if(n == NULL)
-            return NULL;
-
-        prev->next = n;
-        prev = n;
-    }
-
-    list *l = (list *)malloc(sizeof(list));
+    list *l = lcreaten();
     if(l == NULL)
         return NULL;
 
-    l->head = head;
-    lsettail(l, prev);
-    l->len = len;
-    l->iscircular = 0;
+    for(int i = 0; i < len; i++)
+        if(mode == 'a')
+            lappend(l, vals[i]);
+        else
+            lprepend(l, vals[i]);
 
     return l;
 }
