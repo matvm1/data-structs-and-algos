@@ -10,12 +10,11 @@ typedef struct list {
     node *head;
     node *tail;
     long len;
+    int iscircular; // 1 - yes, 0 - no
 } list;
 
 node * lnode(int val);
-list * lcreate(int vals[], int len);
-void lprintn(node *head);
-void lprint(list *l);
+list * lcreate(int vals[], long len);
 void lappend(list *l, int val);
 node * lsearch(list *l, int val);
 void ldelete(list *l, node *prev, node *node);
@@ -25,6 +24,11 @@ void ldeletea(list *l, int val);
 void lsettail(list *l, node *n);
 void lreverse(list *l);
 void lfree(list *l);
+void lprint(list *l);
+void lprintn(node *node);
+void lmakecirc(list *l);
+void clprint(list *l, int m);
+void clprintn(list *l, node *n, int m);
 
 // Creates a linked list with a single node whose value is val
 // Returns a pointre to the node
@@ -36,10 +40,13 @@ node * lnode(int val)
     return head;
 }
 
-// Creates a linked list with multiples node whose values are those stored in int val[]
+// Creates a non-circular linked list with multiples node whose values are those stored in int val[]
 // Returns a pointer to the head of the list
-list * lcreate(int vals[], int len)
+list * lcreate(int vals[], long len)
 {
+    if(len < 1)
+        return NULL;
+
     node *head = lnode(vals[0]);
     node *prev = head;
     for(int i = 1; i < len; i++)
@@ -53,6 +60,7 @@ list * lcreate(int vals[], int len)
     l->head = head;
     lsettail(l, prev);
     l->len = len;
+    l->iscircular = 0;
 
     return l;
 }
@@ -189,9 +197,15 @@ void lreverse(list *l)
 // Sets the tail of the list to node n
 void lsettail(list *l, node *n)
 {
-    l->tail = n;
-    // Ensure that prev doesn't point to garbage data
-    n->next = NULL;
+    if(l->iscircular)
+    {
+        l->tail->next = n;
+        n->next = l->head;
+    }
+    else
+        // Ensure tail->next doesn't point to garbage data
+        n->next = NULL;
+    l->tail = n;    
 }
 
 // Frees all nodes in the list and the list itself
@@ -209,17 +223,30 @@ void lfree(list *l)
     free(l);
 }
 
+// Prints a list
+void lprint(list *l)
+{
+    if(l == NULL)
+    {
+        printf("NULL list\n");
+        return;
+    }
+
+    printf("{len: %li} ", l->len);
+    lprintn(l->head);
+}
+
 // Prints the linked list originating at node *head
 // Theta(n)
-void lprintn(node *head)
+void lprintn(node *n)
 {
-    if(head == NULL)
+    if(n == NULL)
     {
         printf("Empty list\n");
         return;
     }
 
-    node *tmp = head;
+    node *tmp = n;
     printf("[");
     while(tmp->next != NULL)
     {
@@ -229,14 +256,48 @@ void lprintn(node *head)
     printf("%i]\n", tmp->val);
 }
 
-// Prints a list
-void lprint(list *l)
+// Makes the list a circular linked list
+void lmakecirc(list *l)
+{
+    l->iscircular = 1;
+    l->tail->next = l->head;
+}
+
+// Prints m nodes from a circular linked list
+// If m is greater than l->len, then the iterator wraps around and continues printing
+void clprint(list *l, int m)
 {
     if(l == NULL)
     {
         printf("NULL list\n");
         return;
     }
+
+    if(!l->iscircular)
+    {
+        printf("Not a circular list\n");
+        return;
+    }
+
     printf("{len: %li} ", l->len);
-    lprintn(l->head);
+    clprintn(l, l->head, m);
 }
+
+
+ void clprintn(list *l, node *n, int m)
+ {
+    node *prev = NULL;
+    node *curr = n;
+
+    printf("[");
+    for(int i = 0; i < m - 1; i++)
+    {   
+        if(curr == l->tail)
+            printf("%i | ", curr->val);
+        else if (curr != l->tail)
+            printf("%i, ", curr->val);
+        prev = curr;
+        curr = curr->next;
+    }
+    printf("%i]\n", curr->val);
+ }

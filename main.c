@@ -3,11 +3,15 @@
 int main(int argc, char *argv[])
 {
     int nums[] = {1, 3, 5, 7, 11, -1, -10, -100, 11, 3, 1, 1};
-    printf("Creating list ");
+    printf("Creating list: ");
     list *l = lcreate(nums, sizeof(nums)/sizeof(nums[0]));
     lprint(l);
 
-    printf("Appending 15: ");
+    printf("Making list circular: ");
+    lmakecirc(l);
+    clprint(l, l->len * 2 + 1);
+
+    /*printf("Appending 15: ");
     lappend(l, 15);
     lprint(l);
 
@@ -45,5 +49,5 @@ int main(int argc, char *argv[])
 
     printf("Freeing list: ");
     lfree(l);
-    lprint(l);    
+    lprint(l);  */  
 }
