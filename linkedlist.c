@@ -107,6 +107,7 @@ void lappend(list *l, int val)
     {
         l->head = n;
         lsettail(l, n);
+        l->len++;
         return;
     }
 
