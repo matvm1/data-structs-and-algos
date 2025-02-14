@@ -26,7 +26,7 @@ void ldeletea(list *l, int val);
 void lsethead(list *l, node *n);
 void lsettail(list *l, node *n);
 void lreverse(list *l);
-void lfree(list *l);
+void lfree(list **l);
 void lprint(list *l);
 void lprintn(node *node);
 void lmakecirc(list *l);
@@ -286,22 +286,28 @@ void lsettail(list *l, node *n)
 }
 
 // Frees all nodes in the list and the list itself
-void lfree(list *l)
+void lfree(list **l)
 {
-    node *tmp = l->head;
+    if(l == NULL || *l == NULL)
+        return;
 
-    while(tmp != l->tail)
+    if((*l)->head != NULL)
     {
-        l->head = l->head->next;
-        free(tmp);
-        tmp = l->head;
+        node *tmp = (*l)->head;
+
+        while(tmp != (*l)->tail)
+        {
+            (*l)->head = (*l)->head->next;
+            free(tmp);
+            tmp = (*l)->head;
+        }
+        tmp = NULL;
+        free((*l)->tail);
     }
-    free(l->tail);
-    l->len = 0;
-    free(l);
-    tmp = NULL;
-    l->head = NULL;
-    l->tail = NULL;
+    free(*l);
+    (*l)->head = NULL;
+    (*l)->tail = NULL;
+    *l = NULL;
 }
 
 // Prints a list
