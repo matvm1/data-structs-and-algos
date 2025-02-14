@@ -1,6 +1,14 @@
 #include "linkedlist.c"
 
+void singlylinkedlists();
+void stacks();
+
 int main(int argc, char *argv[])
+{
+    singlylinkedlists();
+}
+
+void singlylinkedlists()
 {
     int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
     printf("Creating list0: ");
@@ -116,6 +124,13 @@ int main(int argc, char *argv[])
     printf("Printing l1 using lprint:\n    l1: ");
     lprint(l1);
 
+    printf("Creating empty list l2:\n    l2: ");
+    list *l2 = lcreaten();
+    lprint(l2);
+    printf("Appending values to l2:\n     l2: ");
+    for(int i = 0; i < 16; i++)
+        lappend(l2, i);
+    lprint(l2);
 
     printf("Freeing lists:\n    l0: ");
     lfree(l0);
@@ -123,4 +138,9 @@ int main(int argc, char *argv[])
     printf("    l1: ");
     lfree(l1);
     lprint(l1);
+}
+
+void stacks()
+{
+    int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
 }

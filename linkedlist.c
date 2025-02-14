@@ -14,6 +14,7 @@ typedef struct list {
 } list;
 
 node * lnode(int val);
+list * lcreaten();
 list * lcreate(int vals[], long len);
 void lappend(list *l, int val);
 node * lsearch(list *l, int val);
@@ -36,9 +37,25 @@ void clprintn(list *l, node *n, int m);
 node * lnode(int val)
 {
     node *head = (node *)malloc(sizeof(node *));
+    if(head == NULL)
+        return NULL;
+
     head->val = val;
 
     return head;
+}
+
+// Creates an empty list
+list * lcreaten()
+{
+    list *l = (list *)malloc(sizeof(list));
+    if(l == NULL)
+        return NULL;
+    
+    l->head = NULL;
+    l->tail = NULL;
+
+    return l;
 }
 
 // Creates a non-circular linked list with multiples node whose values are those stored in int val[]
@@ -49,15 +66,24 @@ list * lcreate(int vals[], long len)
         return NULL;
 
     node *head = lnode(vals[0]);
+    if(head == NULL)
+        return NULL;
+
     node *prev = head;
     for(int i = 1; i < len; i++)
     {
         node *n = lnode(vals[i]);
+        if(n == NULL)
+            return NULL;
+
         prev->next = n;
         prev = n;
     }
 
     list *l = (list *)malloc(sizeof(list));
+    if(l == NULL)
+        return NULL;
+
     l->head = head;
     lsettail(l, prev);
     l->len = len;
@@ -71,6 +97,8 @@ list * lcreate(int vals[], long len)
 void lappend(list *l, int val)
 {
     node *n = lnode(val);
+    if(n == NULL)
+        return NULL;
 
     l->tail->next = n;
     lsettail(l, n);
