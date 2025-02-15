@@ -1,6 +1,6 @@
-#include "structs.h"
-#include "linkedlist.c"
-#include "stack.c"
+#include "structs/structs.h"
+#include "structs/linkedlist.c"
+#include "structs/stack.c"
 
 void singlylinkedlists();
 void stacks();
