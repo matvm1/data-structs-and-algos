@@ -19,11 +19,12 @@ typedef struct list {
 // List wrapper
 typedef struct stack {
     list *list;
+    long height;
 } stack;
 
 node * lnode(int val);
 list * lcreaten();
-list * lcreate(int vals[], long len, char mode);
+list * lcreatea(int vals[], long len, char mode);
 void lprepend(list *l, int val);
 void lappend(list *l, int val);
 node * lsearch(list *l, int val);
@@ -42,11 +43,12 @@ void lremovecirc(list *l);
 void clprint(list *l, int m);
 void clprintn(list *l, node *n, int m);
 
-stack * stcreate();
-stack * stcreaten(int vals[], long len);
+stack * stcreaten();
+stack * stcreatea(int vals[], long len);
 void push(stack *s, int val);
 int pop(stack *s);
 int peek(stack *s);
 void stprint(stack *s);
+void stfree(stack **s);
 
 #endif

@@ -31,7 +31,7 @@ list * lcreaten()
 // Creates a non-circular linked list with multiples node whose values are those stored in int val[]
 // mode: a - appends values, p - prepends values
 // Returns a pointer to the head of the list
-list * lcreate(int vals[], long len, char mode)
+list * lcreatea(int vals[], long len, char mode)
 {
     if(mode != 'a' && mode != 'p')
         return NULL;

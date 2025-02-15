@@ -7,18 +7,18 @@ void stacks();
 
 int main(int argc, char *argv[])
 {
-    singlylinkedlists();
+    stacks();
 }
 
 void singlylinkedlists()
 {
     int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
     printf("Creating list0 from array:\n    l0: ");
-    list *l0 = lcreate(nums, sizeof(nums)/sizeof(nums[0]), 'a');
+    list *l0 = lcreatea(nums, sizeof(nums)/sizeof(nums[0]), 'a');
     lprint(l0);
 
     printf("Creating list1 from array:\n    l1: ");
-    list *l1 = lcreate(nums, sizeof(nums)/sizeof(nums[0]), 'a');
+    list *l1 = lcreatea(nums, sizeof(nums)/sizeof(nums[0]), 'a');
     lprint(l1);
 
     printf("Making list1 circular:\n    l1: ");
@@ -167,4 +167,41 @@ void singlylinkedlists()
     printf("    l4: ");
     lfree(&l4);
     lprint(l4);
+}
+
+void stacks()
+{
+    printf("Creating stack0 from array:\n    s0:");
+    int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
+    stack *s0 = stcreatea(nums, sizeof(nums)/sizeof(nums[0]));
+    stprint(s0);
+
+    printf("Creating stack1 and appending vals:\n    s1:");
+    stack *s1 = stcreaten();
+    for(int i = 0; i < 20; i++)
+        push(s1, i);
+    stprint(s1);
+
+    printf("Freeing s1:\n    s1: ");
+    stfree(&s1);
+    stprint(s1);
+
+    printf("Peeking from s0:\n    s0 val: %i\n", peek(s0));
+    printf("Popping from s0:\n    s0 val: %i\n    s0: ", pop(s0));
+    stprint(s0);
+
+    printf("Pushing 30 to s0 and popping:\n    s0 val: ");
+    push(s0, 30);
+    printf("%i\n    s0: ", pop(s0));
+    stprint(s0);
+
+    printf("Popping all from s0:\n    s0: ");
+    int sth = s0->height;
+    for(int i = 0; i < sth; i++)
+        pop(s0);
+    stprint(s0);
+
+    printf("Freeing s0:\n    s1: ");
+    stfree(&s0);
+    stprint(s0);
 }
