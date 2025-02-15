@@ -1,13 +1,15 @@
 #include "structs/structs.h"
 #include "structs/linkedlist.c"
 #include "structs/stack.c"
+#include "structs/queue.c"
 
 void singlylinkedlists();
 void stacks();
+void queues();
 
 int main(int argc, char *argv[])
 {
-    stacks();
+    queues();
 }
 
 void singlylinkedlists()
@@ -176,7 +178,7 @@ void stacks()
     stack *s0 = stcreatea(nums, sizeof(nums)/sizeof(nums[0]));
     stprint(s0);
 
-    printf("Creating stack1 and appending vals:\n    s1:");
+    printf("Creating stack1 by pushing vals:\n    s1:");
     stack *s1 = stcreaten();
     for(int i = 0; i < 20; i++)
         push(s1, i);
@@ -186,11 +188,11 @@ void stacks()
     stfree(&s1);
     stprint(s1);
 
-    printf("Peeking from s0:\n    s0 val: %i\n", peek(s0));
-    printf("Popping from s0:\n    s0 val: %i\n    s0: ", pop(s0));
+    printf("Peeking from s0:\n    s0 top: %i\n", peek(s0));
+    printf("Popping from s0:\n    s0 popped val: %i\n    s0: ", pop(s0));
     stprint(s0);
 
-    printf("Pushing 30 to s0 and popping:\n    s0 val: ");
+    printf("Pushing 30 to s0 and popping immediately:\n    s0 top: ");
     push(s0, 30);
     printf("%i\n    s0: ", pop(s0));
     stprint(s0);
@@ -204,4 +206,41 @@ void stacks()
     printf("Freeing s0:\n    s1: ");
     stfree(&s0);
     stprint(s0);
+}
+
+void queues()
+{
+    printf("Creating queue0 from array:\n    q0:");
+    int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
+    queue *q0 = qcreatea(nums, sizeof(nums)/sizeof(nums[0]));
+    qprint(q0);
+
+    printf("Creating queue1 by enqueueing vals:\n    q1:");
+    queue *q1 = qcreaten();
+    for(int i = 0; i < 20; i++)
+        enqueue(q1, i);
+    qprint(q1);
+
+    printf("Freeing q1:\n    q1: ");
+    qfree(&q1);
+    qprint(q1);
+
+    printf("Peeking from q0:\n    q0 top: %i\n", qpeek(q0));
+    printf("Dequeueing from q0:\n    q0 dequeue val: %i\n    q0: ", dequeue(q0));
+    qprint(q0);
+
+    printf("Enqueueing 30 to q0 and popping:\n    q0 val: ");
+    enqueue(q0, 30);
+    printf("%i\n    q0: ", dequeue(q0));
+    qprint(q0);
+
+    printf("Dequeueing all from q0:\n    q0: ");
+    int qlen = q0->len;
+    for(int i = 0; i < qlen; i++)
+        dequeue(q0);
+    qprint(q0);
+
+    printf("Freeing q0:\n    q1: ");
+    qfree(&q0);
+    qprint(q0);
 }

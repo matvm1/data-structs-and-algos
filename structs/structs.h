@@ -16,11 +16,17 @@ typedef struct list {
     int iscircular; // 1 - yes, 0 - no
 } list;
 
-// List wrapper
+// List wrapper for stacks
 typedef struct stack {
     list *list;
     long height;
 } stack;
+
+// List wrapper for queues
+typedef struct queue {
+    list *list;
+    long len;
+} queue;
 
 node * lnode(int val);
 list * lcreaten();
@@ -50,5 +56,13 @@ int pop(stack *s);
 int peek(stack *s);
 void stprint(stack *s);
 void stfree(stack **s);
+
+queue * qcreaten();
+queue * qcreatea(int vals[], long len);
+void enqueue(queue *q, int val);
+int dequeue(queue *q);
+int qpeek(queue *q);
+void qprint(queue *q);
+void qfree(queue **q);
 
 #endif
