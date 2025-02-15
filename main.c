@@ -2,14 +2,17 @@
 #include "structs/linkedlist.c"
 #include "structs/stack.c"
 #include "structs/queue.c"
+#include "structs/tree.c"
+#include <math.h>
 
 void singlylinkedlists();
 void stacks();
 void queues();
+void trees();
 
 int main(int argc, char *argv[])
 {
-    queues();
+    trees();
 }
 
 void singlylinkedlists()
@@ -243,4 +246,25 @@ void queues()
     printf("Freeing q0:\n    q1: ");
     qfree(&q0);
     qprint(q0);
+}
+
+void trees()
+{
+    tree *t0 = tcreatenv(1);
+    tree *t0_1 = tinsert(t0, 10);
+    tree *t0_2 = tinsert(t0, 20);
+    tree *t0_1_10 = tinsert(t0_1, 100);
+    tprint(t0);
+    printf("-----\n");
+    tprint(t0_1);
+    printf("-----\n");
+    tprint(t0_1_10);
+    printf("-----\n");
+    tree *tmp = t0;
+    for(long i = 3; i <= 9; i++)
+    {
+        tinsert(tmp, pow(10, i));
+        tmp = tmp->subtree;
+    }
+    tprint(t0);
 }

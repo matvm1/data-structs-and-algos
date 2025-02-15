@@ -362,7 +362,7 @@ void clprint(list *l, int m)
     clprintn(l, l->head, m);
 }
 
-// Prints m nodesthat trail n.
+// Prints m nodes that trail n.
 // If l is a non-NULL list, pretty prints the end of the list.
  void clprintn(list *l, node *n, int m)
  {

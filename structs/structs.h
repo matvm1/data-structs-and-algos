@@ -28,6 +28,13 @@ typedef struct queue {
     long len;
 } queue;
 
+typedef struct tree{
+    int val;
+    struct tree *next;
+    struct tree *subtree;
+} tree;
+
+// linked lists
 node * lnode(int val);
 list * lcreaten();
 list * lcreatea(int vals[], long len, char mode);
@@ -49,6 +56,7 @@ void lremovecirc(list *l);
 void clprint(list *l, int m);
 void clprintn(list *l, node *n, int m);
 
+// stacks
 stack * stcreaten();
 stack * stcreatea(int vals[], long len);
 void push(stack *s, int val);
@@ -57,6 +65,7 @@ int stpeek(stack *s);
 void stprint(stack *s);
 void stfree(stack **s);
 
+// queues
 queue * qcreaten();
 queue * qcreatea(int vals[], long len);
 void enqueue(queue *q, int val);
@@ -64,5 +73,11 @@ int dequeue(queue *q);
 int qpeek(queue *q);
 void qprint(queue *q);
 void qfree(queue **q);
+
+// trees
+tree * tcreaten();
+tree * tcreatenv(int val);
+tree * tinsert(tree *t, int val);
+void tprint(tree *t);
 
 #endif
