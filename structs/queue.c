@@ -91,10 +91,10 @@ void qprint(queue *q)
         return;
     }
 
-    lprint(q->list); //segfaulting after freeing
+    lprint(q->list);
 }
 
-// Frees q, the underlying list, andthe lists' nodes
+// Frees q, the underlying list, and the lists' nodes
 void qfree(queue **q)
 {
     if(q == NULL || *q == NULL)

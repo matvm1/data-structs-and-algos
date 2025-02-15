@@ -19,6 +19,7 @@ stack * stcreaten()
     return s;
 }
 
+// Creates stack from array
 stack * stcreatea(int vals[], long len)
 {
     stack *s = (stack *)malloc(sizeof(stack));
@@ -37,6 +38,8 @@ stack * stcreatea(int vals[], long len)
     return s;
 }
 
+// Pushes val to q
+// O(1)
 void push(stack *s, int val)
 {
     if(s == NULL)
@@ -46,6 +49,9 @@ void push(stack *s, int val)
     s->height++;
 }
 
+// Pops from q
+// Exits program if q or any downstream pointer is null or length is 0
+// O(1)
 int pop(stack *s)
 {
     if(s->list == NULL || s->list == NULL || s->list->head == NULL || s->height == 0)
@@ -61,7 +67,9 @@ int pop(stack *s)
     return r;
 }
 
-int peek(stack *s)
+// Peeks at q
+// Exits program if q or any downstream pointer is null or length is 0
+int stpeek(stack *s)
 {
     if(s->list == NULL || s->list == NULL || s->list->head == NULL || s->height == 0)
     {
@@ -74,6 +82,7 @@ int peek(stack *s)
     return r;
 }
 
+// Prints stack
 void stprint(stack *s)
 {
     if(s == NULL)
@@ -82,9 +91,10 @@ void stprint(stack *s)
         return;
     }
 
-    lprint(s->list); //segfaulting after freeing
+    lprint(s->list);
 }
 
+// Frees s, the underlying list, and the lists' nodes
 void stfree(stack **s)
 {
     if(s == NULL || *s == NULL)

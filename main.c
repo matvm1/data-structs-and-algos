@@ -188,7 +188,7 @@ void stacks()
     stfree(&s1);
     stprint(s1);
 
-    printf("Peeking from s0:\n    s0 top: %i\n", peek(s0));
+    printf("Peeking from s0:\n    s0 top: %i\n", stpeek(s0));
     printf("Popping from s0:\n    s0 popped val: %i\n    s0: ", pop(s0));
     stprint(s0);
 

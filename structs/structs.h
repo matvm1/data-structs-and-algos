@@ -53,7 +53,7 @@ stack * stcreaten();
 stack * stcreatea(int vals[], long len);
 void push(stack *s, int val);
 int pop(stack *s);
-int peek(stack *s);
+int stpeek(stack *s);
 void stprint(stack *s);
 void stfree(stack **s);
 
