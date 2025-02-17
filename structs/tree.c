@@ -59,7 +59,6 @@ void tprint_h(tree *t, int depth)
     for(int i = 0; i < depth; i++)
         printf(" ");
 
-    int x = t->val;
     printf("%i\n", t->val);
 
     if(t->subtree == NULL)
@@ -77,4 +76,21 @@ void tprint_h(tree *t, int depth)
 void tprint(tree *t)
 {
     tprint_h(t, 0);
+}
+
+// Frees tree and its subtrees
+void tfree(tree *t)
+{
+    if(t == NULL)
+        return;
+
+    if(t != NULL && t->next == NULL && t->subtree == NULL)
+    {
+        free(t);
+        return;
+    }
+
+    tfree(t->subtree);
+    tfree(t->next);
+    free(t);
 }
