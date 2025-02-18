@@ -28,8 +28,9 @@ tree * tcreatenv(int val)
 }
 
 // Inserts val as a child node to t
-// Supports k-trees
+// Supports n-trees
 // Returns the child tree
+// O(n) where n is the number of children in t
 tree * tinsert(tree *t, int val)
 {
     if(t == NULL)
@@ -50,11 +51,34 @@ tree * tinsert(tree *t, int val)
     return tmp;
 }
 
+// Searches for the tree node in t whose val==val
+// Returns the head of that tree node if found, NULL otherwise
+tree * tsearch(tree *t, int val)
+{
+    if(t == NULL)
+        return NULL;
+
+    tree *res = NULL;
+    if(t->val == val)
+        res = t;
+
+    if(res == NULL && t->subtree != NULL)
+        res = tsearch(t->subtree, val);
+
+    if(res == NULL && t->next != NULL)
+        res = tsearch(t->next, val);
+
+    return res;
+}
+
 // tprint() helper
 void tprint_h(tree *t, int depth)
 {
     if(t == NULL)
+    {
+        printf("NULL tree\n");
         return;
+    }
 
     for(int i = 0; i < depth; i++)
         printf(" ");
@@ -79,18 +103,20 @@ void tprint(tree *t)
 }
 
 // Frees tree and its subtrees
-void tfree(tree *t)
+void tfree(tree **t)
 {
-    if(t == NULL)
+    if(t == NULL || *t == NULL)
         return;
 
-    if(t != NULL && t->next == NULL && t->subtree == NULL)
+    if(*t != NULL && (*t)->next == NULL && (*t)->subtree == NULL)
     {
-        free(t);
+        free(*t);
+        *t = NULL;
         return;
     }
 
-    tfree(t->subtree);
-    tfree(t->next);
-    free(t);
+    tfree(&((*t)->next));
+    tfree(&((*t)->subtree));
+    free(*t);
+    *t = NULL;
 }

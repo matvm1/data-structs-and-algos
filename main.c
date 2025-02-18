@@ -250,6 +250,7 @@ void queues()
 
 void trees()
 {
+    printf("Creating tree t0 and manually adding children:\n");
     tree *t0 = tcreatenv(1);
     tree *t0_1 = tinsert(t0, 10);
     tree *t0_2 = tinsert(t0, 20);
@@ -260,11 +261,33 @@ void trees()
     printf("-----\n");
     tprint(t0_1_10);
     printf("-----\n");
-    tree *tmp = t0;
+
+    printf("Iteratively adding children to t0:\n");
+    tree *tmp = t0_1_10;
     for(long i = 3; i <= 9; i++)
     {
-        tinsert(tmp, pow(10, i));
+        tree *tmp2 = tinsert(tmp, pow(10, i));
+
+        for(int j = 1; j < i; j++)
+            tinsert(tmp2, tmp2->val + j);
         tmp = tmp->subtree;
     }
     tprint(t0);
+    printf("-----\n");
+
+    printf("Searching for 1002 in t0:\n");
+    tree *r = tsearch(t0, 1002);
+    tprint(r);
+    printf("-----\n");
+
+    printf("Searching for -1002 in t0:\n");
+    r = tsearch(t0, -1002);
+    tprint(r);
+    printf("-----\n");
+
+    printf("Freeing t0:\n");
+    tfree(&t0);
+    tprint(t0);
+
+    tfree(&r);
 }
