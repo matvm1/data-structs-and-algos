@@ -282,8 +282,14 @@ void trees()
 
     printf("Searching for -1002 in t0:\n");
     r = tsearch(t0, -1002);
-    tprint(r);
+    if(r != NULL)
+        tprint(r);
     printf("-----\n");
+
+    /*printf("Trimming subtree 1000000000 from t0:\n");
+    tdelete(t0, 10, 't');
+    tprint(t0);
+    printf("-----\n");*/
 
     printf("Freeing t0:\n");
     tfree(&t0);

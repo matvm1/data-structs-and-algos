@@ -51,6 +51,22 @@ tree * tinsert(tree *t, int val)
     return tmp;
 }
 
+void tdelete(tree *t, int val, char mode)
+{
+    if(t == NULL)
+        return;
+
+    if(mode == 't')
+    {
+        printf("TODO\n");
+    }
+
+    if(mode == 'p')
+    {
+        printf("TODO\n");
+    }
+}
+
 // Searches for the tree node in t whose val==val
 // Returns the head of that tree node if found, NULL otherwise
 tree * tsearch(tree *t, int val)
@@ -107,16 +123,15 @@ void tfree(tree **t)
 {
     if(t == NULL || *t == NULL)
         return;
+    
+    tree *next = (*t)->next;
+    tree *subtree = (*t)->subtree;
 
-    if(*t != NULL && (*t)->next == NULL && (*t)->subtree == NULL)
-    {
-        free(*t);
-        *t = NULL;
-        return;
-    }
+    if(next != NULL)
+        tfree(&(next));
+    if(subtree != NULL)
+        tfree(&(subtree));
 
-    tfree(&((*t)->next));
-    tfree(&((*t)->subtree));
     free(*t);
     *t = NULL;
 }
