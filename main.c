@@ -254,6 +254,7 @@ void trees()
     tree *t0 = tcreatenv(1);
     tree *t0_1 = tinsert(t0, 10);
     tree *t0_2 = tinsert(t0, 20);
+    tree *t0_2_20 = tinsert(t0_2, 200);
     tree *t0_3 = tinsert(t0, 30);
     tree *t0_1_10 = tinsert(t0_1, 100);
     tree *t0_3_30 = tinsert(t0_3, 300);
@@ -289,6 +290,7 @@ void trees()
         tprint(*r);
     printf("-----\n");
 
+    // Trimming test cases
     printf("Trimming subtree 1000000000 from t0:\n");
     tdelete(t0, 1000000000, 't');
     tprint(t0);
@@ -314,8 +316,64 @@ void trees()
     tprint(t0);
     printf("-----\n");
 
-    printf("Promoting children of 1000 from t0:\n");
+    printf("Adding children to t0:\n");
+    tree *tmp3 = t0_2;
+    for(long i = 1; i <= 4; i++)
+        tinsert(tmp3, 2 * (tmp3->val + i));
+
+    tree *tmp4 = t0_3;
+    for(long i = 3; i <= 6; i++)
+    {
+        tree *tmp5 = tinsert(tmp4, 2 * tmp4->val);
+
+        for(int j = 1; j < i; j++)
+            tinsert(tmp5, tmp5->val + j);
+        tmp4 = tmp4->subtree;
+    }
+
+    tree *t0_2_20_200 = tinsert(t0_2_20, 2000);
+    tree *t0_2_20_2000 = tinsert(t0_2_20_200, 20000);
+    tprint(t0);
+    printf("-----\n");
+
+    // Promotion test cases
+    printf("Promoting children of 1000 in t0:\n");
     tdelete(t0, 1000, 'p');
+    tprint(t0);
+    printf("-----\n");
+
+    printf("Promoting children of 601 in t0:\n");
+    tdelete(t0, 601, 'p');
+    tprint(t0);
+    printf("-----\n");
+    
+    printf("Promoting children of 60 in t0:\n");
+    tdelete(t0, 60, 'p');
+    tprint(t0);
+    printf("-----\n");
+
+    printf("Promoting children of 20 in t0:\n");
+    tdelete(t0, 20, 'p');
+    tprint(t0);
+    printf("-----\n");
+
+    printf("Promoting children of 20000 in t0:\n");
+    tdelete(t0, 20000, 'p');
+    tprint(t0);
+    printf("-----\n");
+
+    printf("Promoting children of 1002 in t0:\n");
+    tdelete(t0, 1002, 'p');
+    tprint(t0);
+    printf("-----\n");
+
+    printf("Promoting children of 1205 in t0:\n");
+    tdelete(t0, 1205, 'p');
+    tprint(t0);
+    printf("-----\n");
+
+    printf("Promoting children of 1207 in t0:\n");
+    tdelete(t0, 1207, 'p');
     tprint(t0);
     printf("-----\n");
 

@@ -72,6 +72,9 @@ void tdelete(tree *t, int val, char mode)
     if(t == *r)
         return;
 
+    //if(r != NULL && (*r) != NULL && (*r)->val == 1002 && (*r)->prev != NULL)
+    //    printf("0here %i %i %i\n", (*r)->val, (*r)->prev->val, (*r)->next->val);
+
     if(mode == 't')
     {
         if((*r)->prev == NULL)
@@ -82,6 +85,7 @@ void tdelete(tree *t, int val, char mode)
             {
                 (*r)->parent->subtree = (*r)->next;
                 (*r)->next->parent = (*r)->parent;
+                (*r)->next->prev = NULL;
                 (*r)->parent = NULL;
                 (*r)->next = NULL;
             }
@@ -94,8 +98,6 @@ void tdelete(tree *t, int val, char mode)
             {
                 (*r)->prev->next = (*r)->next;
                 (*r)->next = NULL;
-                tfree(&(*r));
-                return;
             }
                 
         }
@@ -105,14 +107,56 @@ void tdelete(tree *t, int val, char mode)
 
     if(mode == 'p')
     {
-   /*     if((*r)->prev == NULL)
+        tree *pprev = NULL;
+        tree *pnext = NULL;
+        tree *promoted = NULL;
+
+        if((*r)->prev)
+            pprev = (*r)->prev;
+
+        if((*r)->next)
+            pnext = (*r)->next;
+
+        if((*r)->subtree)
+            promoted = (*r)->subtree;
+ 
+        if(promoted)
         {
-            if((*r)->next == NULL)
-               (*r)->parent->subtree = (*r)->subtree;
+            if(!pprev)
+            {
+                (*r)->parent->subtree = promoted;
+                promoted->parent = (*r)->parent;
+
+                if(pnext)
+                    promoted->next = pnext;
+            }
+            else
+            {
+                (*r)->prev->next = promoted;
+                if(pnext)
+                {
+                    tree *tmp = promoted;
+                    while(tmp->next != NULL)
+                        tmp = tmp->next;
+
+                    tmp->next = pnext;
+                }
+            }
+        }
+        else
+        {
+            if(!pprev)
+            {
+                (*r)->parent->subtree = pnext;
+                if(pnext)
+                    pnext->parent = (*r)->parent;
+            }
+            else
+                (*r)->prev->next = (*r)->next;
         }
 
         free(*r);
-        *r = NULL;*/
+        *r = NULL;
     }
 }
 
