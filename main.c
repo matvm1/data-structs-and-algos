@@ -264,9 +264,9 @@ void trees()
     tprint(t0_1_10);
     printf("-----\n");*/
 
-   /* printf("Iteratively adding children to t0:\n");
+    printf("Iteratively adding children to t0:\n");
     tree *tmp = t0_1_10;
-    for(long i = 3; i <= 3; i++)
+    for(long i = 3; i <= 9; i++)
     {
         tree *tmp2 = tinsert(tmp, pow(10, i));
 
@@ -275,7 +275,7 @@ void trees()
         tmp = tmp->subtree;
     }
     tprint(t0);
-    printf("-----\n");*/
+    printf("-----\n");
 
     printf("Searching for 1002 in t0:\n");
     tree **r = tsearch(t0, 1002);
@@ -311,6 +311,11 @@ void trees()
 
     printf("Trimming subtree 1001 from t0:\n");
     tdelete(t0, 1001, 't');
+    tprint(t0);
+    printf("-----\n");
+
+    printf("Promoting children of 1000 from t0:\n");
+    tdelete(t0, 1000, 'p');
     tprint(t0);
     printf("-----\n");
 

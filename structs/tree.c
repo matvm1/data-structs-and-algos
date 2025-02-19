@@ -93,7 +93,8 @@ void tdelete(tree *t, int val, char mode)
             else
             {
                 (*r)->prev->next = (*r)->next;
-                tfree(&((*r)->subtree));
+                (*r)->next = NULL;
+                tfree(&(*r));
                 return;
             }
                 
@@ -104,13 +105,14 @@ void tdelete(tree *t, int val, char mode)
 
     if(mode == 'p')
     {
-        if((*r)->prev == NULL)
+   /*     if((*r)->prev == NULL)
         {
             if((*r)->next == NULL)
-            {
-              // (*r)->parent
-            }
+               (*r)->parent->subtree = (*r)->subtree;
         }
+
+        free(*r);
+        *r = NULL;*/
     }
 }
 
@@ -166,6 +168,7 @@ void tprint(tree *t)
 }
 
 // Frees tree and its subtrees
+// Will free t->next if it exists
 void tfree(tree **t)
 {
     if(t == NULL || *t == NULL)
