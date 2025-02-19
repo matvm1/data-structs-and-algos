@@ -254,18 +254,19 @@ void trees()
     tree *t0 = tcreatenv(1);
     tree *t0_1 = tinsert(t0, 10);
     tree *t0_2 = tinsert(t0, 20);
-    tinsert(t0, 30);
+    tree *t0_3 = tinsert(t0, 30);
     tree *t0_1_10 = tinsert(t0_1, 100);
+    tree *t0_3_30 = tinsert(t0_3, 300);
     tprint(t0);
-    printf("-----\n");
+   /* printf("-----\n");
     tprint(t0_1);
     printf("-----\n");
     tprint(t0_1_10);
-    printf("-----\n");
+    printf("-----\n");*/
 
-    printf("Iteratively adding children to t0:\n");
+   /* printf("Iteratively adding children to t0:\n");
     tree *tmp = t0_1_10;
-    for(long i = 3; i <= 9; i++)
+    for(long i = 3; i <= 3; i++)
     {
         tree *tmp2 = tinsert(tmp, pow(10, i));
 
@@ -274,11 +275,12 @@ void trees()
         tmp = tmp->subtree;
     }
     tprint(t0);
-    printf("-----\n");
+    printf("-----\n");*/
 
     printf("Searching for 1002 in t0:\n");
     tree **r = tsearch(t0, 1002);
-    tprint(*r);
+    if(r != NULL)
+        tprint(*r);
     printf("-----\n");
 
     printf("Searching for -1002 in t0:\n");
@@ -304,6 +306,11 @@ void trees()
 
     printf("Trimming subtree 100001 from t0:\n");
     tdelete(t0, 100001, 't');
+    tprint(t0);
+    printf("-----\n");
+
+    printf("Trimming subtree 1001 from t0:\n");
+    tdelete(t0, 1001, 't');
     tprint(t0);
     printf("-----\n");
 

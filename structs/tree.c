@@ -40,21 +40,21 @@ tree * tinsert(tree *t, int val)
     if(t == NULL)
         return NULL;
 
-    tree *tmp = t->subtree;
     if(t->subtree == NULL)
     {
         t->subtree = tcreatenv(val);
         t->subtree->parent = t;
         return t->subtree;
     }
-
+    
+    tree *tmp = t->subtree;
     while(tmp->next != NULL)
         tmp = tmp->next;
 
     tmp->next = tcreatenv(val);
     tmp->next->prev = tmp;
 
-    return tmp;
+    return tmp->next;
 }
 
 // Searches for a subtree in t where t->val==val and deletes it if found
@@ -104,7 +104,13 @@ void tdelete(tree *t, int val, char mode)
 
     if(mode == 'p')
     {
-        printf("TODO\n");
+        if((*r)->prev == NULL)
+        {
+            if((*r)->next == NULL)
+            {
+              // (*r)->parent
+            }
+        }
     }
 }
 
