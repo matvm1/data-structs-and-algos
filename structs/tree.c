@@ -7,7 +7,9 @@ tree * tcreaten()
     if(t == NULL)
         return NULL;
 
+    t->prev = NULL;
     t->next = NULL;
+    t->parent = NULL;
     t->subtree = NULL;
 
     return t;
@@ -21,7 +23,9 @@ tree * tcreatenv(int val)
         return NULL;
 
     t->val = val;
+    t->prev = NULL;
     t->next = NULL;
+    t->parent = NULL;
     t->subtree = NULL;
 
     return t;
@@ -40,6 +44,7 @@ tree * tinsert(tree *t, int val)
     if(t->subtree == NULL)
     {
         t->subtree = tcreatenv(val);
+        t->subtree->parent = t;
         return t->subtree;
     }
 
@@ -47,18 +52,54 @@ tree * tinsert(tree *t, int val)
         tmp = tmp->next;
 
     tmp->next = tcreatenv(val);
+    tmp->next->prev = tmp;
 
     return tmp;
 }
 
+// Searches for a subtree in t where t->val==val and deletes it if found
+// mode: 't' - trims the entire branch, 'p' - promotes subtree
+// Use tfree() to delete root nodes
 void tdelete(tree *t, int val, char mode)
 {
-    if(t == NULL)
+    if(t == NULL || (mode != 't' && mode != 'p'))
+        return;
+
+    tree **r = tsearch(t, val); 
+    if(r == NULL)
+        return;   
+
+    if(t == *r)
         return;
 
     if(mode == 't')
     {
-        printf("TODO\n");
+        if((*r)->prev == NULL)
+        {
+            if((*r)->next == NULL)
+                (*r)->parent->subtree = NULL;
+            else
+            {
+                (*r)->parent->subtree = (*r)->next;
+                (*r)->next->parent = (*r)->parent;
+                (*r)->parent = NULL;
+                (*r)->next = NULL;
+            }
+        }
+        else
+        {
+            if((*r)->next == NULL)
+                (*r)->prev->next = NULL;
+            else
+            {
+                (*r)->prev->next = (*r)->next;
+                tfree(&((*r)->subtree));
+                return;
+            }
+                
+        }
+        
+        tfree(r);
     }
 
     if(mode == 'p')
@@ -69,14 +110,14 @@ void tdelete(tree *t, int val, char mode)
 
 // Searches for the tree node in t whose val==val
 // Returns the head of that tree node if found, NULL otherwise
-tree * tsearch(tree *t, int val)
+tree ** tsearch(tree *t, int val)
 {
     if(t == NULL)
         return NULL;
 
-    tree *res = NULL;
+    tree **res = NULL;
     if(t->val == val)
-        res = t;
+        res = &t;
 
     if(res == NULL && t->subtree != NULL)
         res = tsearch(t->subtree, val);
@@ -124,6 +165,7 @@ void tfree(tree **t)
     if(t == NULL || *t == NULL)
         return;
     
+    tree *current = *t;
     tree *next = (*t)->next;
     tree *subtree = (*t)->subtree;
 
@@ -132,6 +174,6 @@ void tfree(tree **t)
     if(subtree != NULL)
         tfree(&(subtree));
 
-    free(*t);
+    free(current);
     *t = NULL;
 }

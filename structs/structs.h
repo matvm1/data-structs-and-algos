@@ -30,7 +30,9 @@ typedef struct queue {
 
 typedef struct tree{
     int val;
+    struct tree *prev;
     struct tree *next;
+    struct tree *parent;
     struct tree *subtree;
 } tree;
 
@@ -79,9 +81,8 @@ tree * tcreaten();
 tree * tcreatenv(int val);
 tree * tinsert(tree *t, int val);
 void tdelete(tree *t, int val, char mode);
-void tdeletea(tree *t, int val, char mode);
 int * theight(tree *t);
-tree * tsearch(tree *t, int val);
+tree ** tsearch(tree *t, int val);
 void tprint(tree *t);
 void tfree(tree **t);
 

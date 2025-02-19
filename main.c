@@ -254,6 +254,7 @@ void trees()
     tree *t0 = tcreatenv(1);
     tree *t0_1 = tinsert(t0, 10);
     tree *t0_2 = tinsert(t0, 20);
+    tinsert(t0, 30);
     tree *t0_1_10 = tinsert(t0_1, 100);
     tprint(t0);
     printf("-----\n");
@@ -276,24 +277,39 @@ void trees()
     printf("-----\n");
 
     printf("Searching for 1002 in t0:\n");
-    tree *r = tsearch(t0, 1002);
-    tprint(r);
+    tree **r = tsearch(t0, 1002);
+    tprint(*r);
     printf("-----\n");
 
     printf("Searching for -1002 in t0:\n");
     r = tsearch(t0, -1002);
     if(r != NULL)
-        tprint(r);
+        tprint(*r);
     printf("-----\n");
 
-    /*printf("Trimming subtree 1000000000 from t0:\n");
-    tdelete(t0, 10, 't');
+    printf("Trimming subtree 1000000000 from t0:\n");
+    tdelete(t0, 1000000000, 't');
     tprint(t0);
-    printf("-----\n");*/
+    printf("-----\n");
+
+    printf("Trimming subtree 10000002 from t0:\n");
+    tdelete(t0, 10000002, 't');
+    tprint(t0);
+    printf("-----\n");
+
+    printf("Trimming subtree 100000000 from t0:\n");
+    tdelete(t0, 100000000, 't');
+    tprint(t0);
+    printf("-----\n");
+
+    printf("Trimming subtree 100001 from t0:\n");
+    tdelete(t0, 100001, 't');
+    tprint(t0);
+    printf("-----\n");
 
     printf("Freeing t0:\n");
     tfree(&t0);
     tprint(t0);
 
-    tfree(&r);
+    tfree(r);
 }
