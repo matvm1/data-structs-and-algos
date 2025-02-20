@@ -260,4 +260,9 @@ void bsts()
     printf("Freeing b0:\n");
     bfree(&b0);
     bprint(b0);
+
+    printf("Creating b1 from array:\n");
+    int nums[] = {10, 4, 5, 2, 7, 8, 12, 0, 1, 100};
+    bst *b1 = bcreatea(nums, sizeof(nums)/sizeof(nums[0]));
+    bprint(b1);
 }

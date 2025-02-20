@@ -74,7 +74,7 @@ void qfree(queue **q);
 bst * bcreaten();
 bst * bcreatenv(int val);
 bst * bcreatea(int vals[], long len);
-bst * binsert(bst *b, int val);
+void binsert(bst *b, int val);
 bst * bstsearch(bst *b, int val);
 void bdelete(bst *b, int val, char mode);
 int bheight(bst *b);
