@@ -199,10 +199,11 @@ tree ** tsearch(tree *t, int val)
     return res;
 }
 
-/*int theight_h(tree *t, int height, int maxheight)
+// theight() helper
+int theight_h(tree *t, int height, int maxheight)
 {
     if(t == NULL)
-        return maxheight;
+        return height;
 
     if(height > maxheight)
         maxheight = height;
@@ -216,22 +217,20 @@ tree ** tsearch(tree *t, int val)
     if(t->next != NULL)
         res2 = theight_h(t->next, height, maxheight);
 
-    if(res1 > res2  && res1 > maxheight)
+    if(res1 > res2)
         return res1;
-
-     if(res2 > res1  && res2 > maxheight)
+    else
         return res2;   
-
-    return height;
 }
 
+// Returns the height of tree t
 int theight(tree *t)
 {
     if(t == NULL)
         return 0;
 
     return theight_h(t, 1, 1);
-}*/
+}
 
 // tprint() helper
 void tprint_h(tree *t, int depth)

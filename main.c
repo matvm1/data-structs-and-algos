@@ -259,11 +259,12 @@ void trees()
     tree *t0_1_10 = tinsert(t0_1, 100);
     tree *t0_3_30 = tinsert(t0_3, 300);
     tprint(t0);
-   /* printf("-----\n");
+    printf("Height of t0: %i\n", theight(t0));
+    printf("-----\n");
     tprint(t0_1);
     printf("-----\n");
     tprint(t0_1_10);
-    printf("-----\n");*/
+    printf("-----\n");
 
     printf("Iteratively adding children to t0:\n");
     tree *tmp = t0_1_10;
@@ -276,6 +277,7 @@ void trees()
         tmp = tmp->subtree;
     }
     tprint(t0);
+    printf("Height of t0: %i\n", theight(t0));
     printf("-----\n");
 
     printf("Searching for 1002 in t0:\n");
@@ -314,6 +316,7 @@ void trees()
     printf("Trimming subtree 1001 from t0:\n");
     tdelete(t0, 1001, 't');
     tprint(t0);
+    printf("Height of t0: %i\n", theight(t0));
     printf("-----\n");
 
     printf("Adding children to t0:\n");
@@ -334,6 +337,7 @@ void trees()
     tree *t0_2_20_200 = tinsert(t0_2_20, 2000);
     tree *t0_2_20_2000 = tinsert(t0_2_20_200, 20000);
     tprint(t0);
+    printf("Height of t0: %i\n", theight(t0));
     printf("-----\n");
 
     // Promotion test cases
@@ -375,8 +379,10 @@ void trees()
     printf("Promoting children of 1207 in t0:\n");
     tdelete(t0, 1207, 'p');
     tprint(t0);
+    printf("Height of t0: %i\n", theight(t0));
     printf("-----\n");
 
+    printf("Deleting from t0 after promotions to check tree structure:\n");
     tdelete(t0, 10002, 't');
     tdelete(t0, 10003, 't');
     tdelete(t0, 42, 't');
@@ -384,7 +390,7 @@ void trees()
     tdelete(t0, 46, 't');
     tdelete(t0, 30, 't');
     tprint(t0);
-    //printf("Height of t0: %i\n", theight(t0));
+    printf("Height of t0: %i\n", theight(t0));
 
     printf("Freeing t0:\n");
     tfree(&t0);
