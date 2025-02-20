@@ -22,6 +22,8 @@ bst * bcreatenv(int val)
     return b;
 }
 
+// Prints a binary tree
+// TODO: Print such that the left node is printed prior to the parent, and right node after the parent
 void bprint_h(bst *b, int depth)
 {
     for(int i = 0; i < depth; i++)
@@ -45,4 +47,23 @@ void bprint(bst *b)
     }
 
     bprint_h(b, 0);
+}
+
+void bfree(bst **b)
+{
+    if(!b || !*b)
+        return;
+    
+    bst *curr = *b;
+    bst *left = curr->left;
+    bst *right = curr->right;
+
+    if(left)
+        bfree(&left);
+    
+    if(right)
+        bfree(&right);
+
+    free(*b);
+    *b = NULL;
 }

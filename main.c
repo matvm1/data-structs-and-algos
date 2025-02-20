@@ -249,10 +249,15 @@ void queues()
 
 void bsts()
 {
+    printf("Creating b0 manually:\n");
     bst *b0 = bcreaten();
     bst *b0l = bcreatenv(-1);
     bst *b0r = bcreatenv(1);
     b0->left = b0l;
     b0->right = b0r;
+    bprint(b0);
+
+    printf("Freeing b0:\n");
+    bfree(&b0);
     bprint(b0);
 }

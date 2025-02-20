@@ -79,6 +79,6 @@ bst * bstsearch(bst *b, int val);
 void bdelete(bst *b, int val, char mode);
 int bheight(bst *b);
 void bprint(bst *b);
-void bfree(bst *b);
+void bfree(bst **b);
 
 #endif
