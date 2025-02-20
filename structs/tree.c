@@ -226,7 +226,7 @@ int theight(tree *t)
     if(t == NULL)
         return 0;
 
-    return theight_h(t, 1, 1);
+    return theight_h(t, 1);
 }
 
 // tprint() helper
