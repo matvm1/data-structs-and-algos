@@ -256,6 +256,7 @@ void bsts()
     b0->left = b0l;
     b0->right = b0r;
     bprint(b0);
+    printf("---\n");
 
     printf("Freeing b0:\n");
     bfree(&b0);
