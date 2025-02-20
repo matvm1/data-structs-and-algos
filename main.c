@@ -262,7 +262,7 @@ void bsts()
     bprint(b0);
 
     printf("Creating b1 from array:\n");
-    int nums[] = {10, 4, 5, 2, 7, 8, 12, 0, 1, 100};
+    int nums[] = {10, 4, 5, 2, 7, 8, 12, 0, 1, 100, 9};
     bst *b1 = bcreatea(nums, sizeof(nums)/sizeof(nums[0]));
     bprint(b1);
 
@@ -276,5 +276,7 @@ void bsts()
     bprint(bstsearch(b1, 100)); 
 
     printf("Searching for 30 in b1:\n");
-    bprint(bstsearch(b1, 30)); 
+    bprint(bstsearch(b1, 30));
+
+    printf("Height of b1: %i\n", bheight(b1));
 }

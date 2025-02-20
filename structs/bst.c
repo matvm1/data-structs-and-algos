@@ -132,6 +132,34 @@ bst * bstsearch(bst *b, int val)
     return res;
 }
 
+// bheight() helper
+int bheight_h(bst *b, int height)
+{
+    int res1 = height;
+    int res2 = height;
+
+    if(b->left)
+        res1 = bheight_h(b->left, height + 1);
+
+    if(b->right)
+        res2 = bheight_h(b->right, height + 1);   
+
+    if(res1 > res2)
+        return res1;
+    else
+        return res2;
+}
+
+// Returns the height of BST b
+// Theta(n)
+int bheight(bst *b)
+{
+    if(!b)
+        return 0;
+
+    return bheight_h(b, 1);
+}
+
 // bprint() helper
 // TODO: Print such that the left node is printed prior to the parent, and right node after the parent
 void bprint_h(bst *b, int depth)
