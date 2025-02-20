@@ -256,7 +256,6 @@ void bsts()
     b0->left = b0l;
     b0->right = b0r;
     bprint(b0);
-    printf("---\n");
 
     printf("Freeing b0:\n");
     bfree(&b0);
@@ -266,4 +265,16 @@ void bsts()
     int nums[] = {10, 4, 5, 2, 7, 8, 12, 0, 1, 100};
     bst *b1 = bcreatea(nums, sizeof(nums)/sizeof(nums[0]));
     bprint(b1);
+
+    printf("Searching for 4 in b1:\n");
+    bprint(bstsearch(b1, 4));
+
+    printf("Searching for 8 in b1:\n");
+    bprint(bstsearch(b1, 8)); 
+
+    printf("Searching for 100 in b1:\n");
+    bprint(bstsearch(b1, 100)); 
+
+    printf("Searching for 30 in b1:\n");
+    bprint(bstsearch(b1, 30)); 
 }

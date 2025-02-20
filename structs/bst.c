@@ -110,6 +110,28 @@ bst * binsert_r(bst *b, int val)
     return res;
 }
 
+// Searches for the node in b with val=val
+// Returns the nodes address if found, NULL otherwise
+// O(log n)
+// Omega(1)
+bst * bstsearch(bst *b, int val)
+{
+    if(!b)
+        return NULL;
+
+    bst *res = NULL;
+    if(b->val == val)
+        res = b;
+
+    if(!res && val < b->val && b->left)
+        res = bstsearch(b->left, val);
+
+    if(!res && val > b->val && b->right)
+        res = bstsearch(b->right, val); 
+
+    return res;
+}
+
 // bprint() helper
 // TODO: Print such that the left node is printed prior to the parent, and right node after the parent
 void bprint_h(bst *b, int depth)
