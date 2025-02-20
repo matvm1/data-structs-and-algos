@@ -377,6 +377,15 @@ void trees()
     tprint(t0);
     printf("-----\n");
 
+    tdelete(t0, 10002, 't');
+    tdelete(t0, 10003, 't');
+    tdelete(t0, 42, 't');
+    tdelete(t0, 44, 't');
+    tdelete(t0, 46, 't');
+    tdelete(t0, 30, 't');
+    tprint(t0);
+    //printf("Height of t0: %i\n", theight(t0));
+
     printf("Freeing t0:\n");
     tfree(&t0);
     tprint(t0);

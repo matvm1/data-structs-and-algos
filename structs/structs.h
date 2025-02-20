@@ -81,7 +81,7 @@ tree * tcreaten();
 tree * tcreatenv(int val);
 tree * tinsert(tree *t, int val);
 void tdelete(tree *t, int val, char mode);
-int * theight(tree *t);
+int theight(tree *t);
 tree ** tsearch(tree *t, int val);
 void tprint(tree *t);
 void tfree(tree **t);

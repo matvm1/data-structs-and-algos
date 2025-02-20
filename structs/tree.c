@@ -72,31 +72,35 @@ void tdelete(tree *t, int val, char mode)
     if(t == *r)
         return;
 
-    //if(r != NULL && (*r) != NULL && (*r)->val == 1002 && (*r)->prev != NULL)
-    //    printf("0here %i %i %i\n", (*r)->val, (*r)->prev->val, (*r)->next->val);
-
     if(mode == 't')
     {
-        if((*r)->prev == NULL)
+        tree *tprev = NULL, *tnext = NULL;
+
+        if((*r)->prev)
+            tprev = (*r)->prev;
+
+        if((*r)->next)
+            tnext = (*r)->next;
+    
+        if(!tprev)
         {
-            if((*r)->next == NULL)
+            if(!tnext)
                 (*r)->parent->subtree = NULL;
             else
             {
-                (*r)->parent->subtree = (*r)->next;
-                (*r)->next->parent = (*r)->parent;
-                (*r)->next->prev = NULL;
+                (*r)->parent->subtree = tnext;
+                tnext->parent = (*r)->parent;
+                tnext->prev = NULL;
                 (*r)->parent = NULL;
                 (*r)->next = NULL;
             }
         }
         else
         {
-            if((*r)->next == NULL)
-                (*r)->prev->next = NULL;
-            else
+            tprev->next = tnext;
+            if(tnext)
             {
-                (*r)->prev->next = (*r)->next;
+                tnext->prev = tprev;
                 (*r)->next = NULL;
             }
                 
@@ -107,9 +111,7 @@ void tdelete(tree *t, int val, char mode)
 
     if(mode == 'p')
     {
-        tree *pprev = NULL;
-        tree *pnext = NULL;
-        tree *promoted = NULL;
+        tree *pprev = NULL, *pnext = NULL, *promoted = NULL;
 
         if((*r)->prev)
             pprev = (*r)->prev;
@@ -128,7 +130,12 @@ void tdelete(tree *t, int val, char mode)
                 promoted->parent = (*r)->parent;
 
                 if(pnext)
+                {
                     promoted->next = pnext;
+                    pnext->prev = promoted;
+                }
+
+                promoted->prev = NULL;
             }
             else
             {
@@ -140,7 +147,11 @@ void tdelete(tree *t, int val, char mode)
                         tmp = tmp->next;
 
                     tmp->next = pnext;
+                    pnext->prev = tmp;
                 }
+
+                promoted->parent = NULL;
+                promoted->prev = pprev;
             }
         }
         else
@@ -149,10 +160,18 @@ void tdelete(tree *t, int val, char mode)
             {
                 (*r)->parent->subtree = pnext;
                 if(pnext)
+                {
                     pnext->parent = (*r)->parent;
+                    pnext->prev = NULL;
+                }
             }
             else
-                (*r)->prev->next = (*r)->next;
+            {
+                pprev->next = pnext;
+
+                if(pnext)
+                    pnext->prev = pprev;
+            }
         }
 
         free(*r);
@@ -179,6 +198,40 @@ tree ** tsearch(tree *t, int val)
 
     return res;
 }
+
+/*int theight_h(tree *t, int height, int maxheight)
+{
+    if(t == NULL)
+        return maxheight;
+
+    if(height > maxheight)
+        maxheight = height;
+
+    int res1 = height;
+    int res2 = height;
+
+    if(t->subtree != NULL)
+        res1 = theight_h(t->subtree, height + 1, maxheight);
+
+    if(t->next != NULL)
+        res2 = theight_h(t->next, height, maxheight);
+
+    if(res1 > res2  && res1 > maxheight)
+        return res1;
+
+     if(res2 > res1  && res2 > maxheight)
+        return res2;   
+
+    return height;
+}
+
+int theight(tree *t)
+{
+    if(t == NULL)
+        return 0;
+
+    return theight_h(t, 1, 1);
+}*/
 
 // tprint() helper
 void tprint_h(tree *t, int depth)
