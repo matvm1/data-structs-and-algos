@@ -200,22 +200,19 @@ tree ** tsearch(tree *t, int val)
 }
 
 // theight() helper
-int theight_h(tree *t, int height, int maxheight)
+int theight_h(tree *t, int height)
 {
     if(t == NULL)
         return height;
-
-    if(height > maxheight)
-        maxheight = height;
 
     int res1 = height;
     int res2 = height;
 
     if(t->subtree != NULL)
-        res1 = theight_h(t->subtree, height + 1, maxheight);
+        res1 = theight_h(t->subtree, height + 1);
 
     if(t->next != NULL)
-        res2 = theight_h(t->next, height, maxheight);
+        res2 = theight_h(t->next, height);
 
     if(res1 > res2)
         return res1;
