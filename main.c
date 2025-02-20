@@ -2,14 +2,16 @@
 #include "structs/linkedlist.c"
 #include "structs/stack.c"
 #include "structs/queue.c"
+#include "structs/bst.c"
 
 void singlylinkedlists();
 void stacks();
 void queues();
+void bsts();
 
 int main(int argc, char *argv[])
 {
-    queues();
+    bsts();
 }
 
 void singlylinkedlists()
@@ -243,4 +245,14 @@ void queues()
     printf("Freeing q0:\n    q1: ");
     qfree(&q0);
     qprint(q0);
+}
+
+void bsts()
+{
+    bst *b0 = bcreaten();
+    bst *b0l = bcreatenv(-1);
+    bst *b0r = bcreatenv(1);
+    b0->left = b0l;
+    b0->right = b0r;
+    bprint(b0);
 }

@@ -28,6 +28,12 @@ typedef struct queue {
     long len;
 } queue;
 
+typedef struct bst {
+    int val;
+    struct bst *left;
+    struct bst *right;
+} bst;
+
 node * lnode(int val);
 list * lcreaten();
 list * lcreatea(int vals[], long len, char mode);
@@ -64,5 +70,15 @@ int dequeue(queue *q);
 int qpeek(queue *q);
 void qprint(queue *q);
 void qfree(queue **q);
+
+bst * bcreaten();
+bst * bcreatenv(int val);
+bst * bcreatea(int vals[], long len);
+bst * binsert(bst *b, int val);
+bst * bstsearch(bst *b, int val);
+void bdelete(bst *b, int val, char mode);
+int bheight(bst *b);
+void bprint(bst *b);
+void bfree(bst *b);
 
 #endif
