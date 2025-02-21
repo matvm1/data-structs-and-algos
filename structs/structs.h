@@ -45,7 +45,9 @@ typedef struct bst {
 
 node * lnode(int val);
 list * lcreaten();
+list * lcreatenv(int val);
 list * lcreatea(int vals[], long len, char mode);
+list * lcreatea_sorted(int vals[], long len, char mode);
 void lprepend(list *l, int val);
 void lappend(list *l, int val);
 node * lsearch(list *l, int val);

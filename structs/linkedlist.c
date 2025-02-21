@@ -28,6 +28,23 @@ list * lcreaten()
     return l;
 }
 
+// Creates a non-circular list with one node whose val=val
+list * lcreatenv(int val)
+{
+    list *l = (list *)malloc(sizeof(list));
+    if(l == NULL)
+        return NULL;
+    
+    node *n = lnode(val);
+
+    l->head = n;
+    l->tail = n;
+    l->len = 1;
+    l->iscircular = 0;
+
+    return l;
+}
+
 // Creates a non-circular linked list with multiples node whose values are those stored in int val[]
 // mode: a - appends values, p - prepends values
 // Returns a pointer to the head of the list
@@ -48,6 +65,48 @@ list * lcreatea(int vals[], long len, char mode)
             lappend(l, vals[i]);
         else
             lprepend(l, vals[i]);
+
+    return l;
+}
+
+// Creates a sorted, non-circular linked list with multiples node whose values are those stored in int val[]
+// mode: a - sorted ascending, d - sorted descending
+// Returns a pointer to the head of the list
+// TODO: Fix bug where UB is causing segfault. Happens when vals[0] is the greatest num in the array
+list * lcreatea_sorted(int vals[], long len, char mode)
+{
+    if(mode != 'a' && mode != 'd')
+        return NULL;
+
+    if(!vals || len < 1)
+        return NULL;
+
+    list *l = lcreatenv(vals[0]);
+    if(l == NULL)
+        return NULL;
+
+    if(mode  == 'a')
+    {
+        for(int i = 1; i < len; i++)
+        {
+            {
+                if(vals[i] >= l->tail->val)
+                    lappend(l, vals[i]);
+                else if(vals[i] <= l->head->val)
+                    lprepend(l, vals[i]);
+                else
+                {   
+                    node *tmp = l->head;
+                    while(tmp->next->val < vals[i])
+                        tmp = tmp->next;
+                    node *n = lnode(vals[i]);
+                    n->next = tmp->next;
+                    tmp->next = n;
+                    l->len++;
+                }
+            }
+        }
+    }
 
     return l;
 }

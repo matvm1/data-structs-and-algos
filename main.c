@@ -15,12 +15,12 @@ void bsts();
 
 int main(int argc, char *argv[])
 {
-    bsts();
+    singlylinkedlists();
 }
 
 void singlylinkedlists()
 {
-    int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
+    int nums[] = {-1000, 1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 6};
     printf("Creating list0 from array:\n    l0: ");
     list *l0 = lcreatea(nums, sizeof(nums)/sizeof(nums[0]), 'a');
     lprint(l0);
@@ -175,6 +175,10 @@ void singlylinkedlists()
     printf("    l4: ");
     lfree(&l4);
     lprint(l4);
+
+    printf("Creating sorted list l5 from array:\n    l5: ");
+    list *l5 = lcreatea_sorted(nums, sizeof(nums)/sizeof(nums[0]), 'a');
+    lprint(l5);
 }
 
 void stacks()
