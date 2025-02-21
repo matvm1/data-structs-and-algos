@@ -262,7 +262,7 @@ void bsts()
     bprint(b0);
 
     printf("Creating b1 from array:\n");
-    int nums[] = {10, 4, 5, 2, 7, 8, 12, 0, 1, 100, 9};
+    int nums[] = {10, 4, 5, 2, 7, 3, 9, 12, 0, 1, 100, 8, 30, 35, 20, 25, 60, 45, 18, 3};
     bst *b1 = bcreatea(nums, sizeof(nums)/sizeof(nums[0]));
     bprint(b1);
 
@@ -281,6 +281,14 @@ void bsts()
         bprint(*r);
 
     printf("Height of b1: %i\n", bheight(b1));
+    
+    printf("Trimming 9 from b1:\n");
+    bdelete(b1, 9, 't');
+    bprint(b1);
+
+    printf("Trimming 2 from b1:\n");
+    bdelete(b1, 2, 't');
+    bprint(b1);
 
     bfree(&b1);
 }

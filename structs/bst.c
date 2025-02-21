@@ -123,13 +123,57 @@ bst ** bstsearch(bst *b, int val)
     if(b->val == val)
         res = &b;
 
-    if(!res && val < b->val && b->left)
+    if(!res && b->left && val < b->val)
         res = bstsearch(b->left, val);
 
-    if(!res && val > b->val && b->right)
-        res = bstsearch(b->right, val); 
+    if(!res && b->right && val > b->val)
+        res = bstsearch(b->right, val);
 
     return res;
+}
+
+void bdelete_h(bst *b, int val, char mode)
+{
+    if(!b)
+        return;
+
+    if(b->left && b->left->val == val)
+    {
+        if(mode == 't')
+            bfree(&(b->left));
+        
+        b->left = NULL;
+        return;
+    }
+
+    if(b->right && b->right->val == val)
+    {
+        if(mode == 't')
+            bfree(&(b->right));
+
+        b->right = NULL;
+        return;
+    }
+
+    if(b->left && val < b->val)
+        bdelete_h(b->left, val, mode);
+
+    if(b->right && val > b->val)
+        bdelete_h(b->right, val, mode);
+}
+
+// Searches for a subtree in b where b->val==val and deletes it if found
+// mode: 't' - trims the entire branch, 'p' - promotes subtree
+// Deletion of root nodes not supportd - use bfree()
+void bdelete(bst *b, int val, char mode)
+{
+    if(b->val == val)
+        return;
+
+    if(mode != 't' && mode != 'p')
+        return;
+
+    bdelete_h(b, val, mode);
 }
 
 // bheight() helper
@@ -162,18 +206,18 @@ int bheight(bst *b)
 
 // bprint() helper
 // TODO: Print such that the left node is printed prior to the parent, and right node after the parent
-void bprint_h(bst *b, int depth)
+void bprint_h(bst *b, int depth, char *branch)
 {
     for(int i = 0; i < depth; i++)
         printf(" ");
 
-    printf("%i\n", b->val);
+    printf("%s%i\n", branch, b->val);
 
     if(b->left)
-        bprint_h(b->left, depth + 1);
+        bprint_h(b->left, depth + 1, "L:");
 
     if(b->right)
-        bprint_h(b->right, depth + 1);
+        bprint_h(b->right, depth + 1, "R:");
 }
 
 // Prints a binary tree
@@ -185,7 +229,7 @@ void bprint(bst *b)
         return;
     }
 
-    bprint_h(b, 0);
+    bprint_h(b, 0, "");
 }
 
 // Frees BST b and its children
@@ -204,6 +248,6 @@ void bfree(bst **b)
     if(right)
         bfree(&right);
 
-    free(*b);
+    free(curr); //Still not sure why free(*b) does not work on pointer-to-pointer from search result in tdelete(). Same issue as tdelete() in tree.c
     *b = NULL;
 }
