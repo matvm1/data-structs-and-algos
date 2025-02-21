@@ -37,6 +37,12 @@ typedef struct tree{
 } tree;
 
 // linked lists
+typedef struct bst {
+    int val;
+    struct bst *left;
+    struct bst *right;
+} bst;
+
 node * lnode(int val);
 list * lcreaten();
 list * lcreatea(int vals[], long len, char mode);
@@ -85,5 +91,16 @@ int theight(tree *t);
 tree ** tsearch(tree *t, int val);
 void tprint(tree *t);
 void tfree(tree **t);
+
+bst * bcreaten();
+bst * bcreatenv(int val);
+bst * bcreatea(int vals[], long len);
+void binsert(bst *b, int val);
+bst * binsert_r(bst *b, int val);
+bst ** bstsearch(bst *b, int val);
+void bdelete(bst *b, int val, char mode);
+int bheight(bst *b);
+void bprint(bst *b);
+void bfree(bst **b);
 
 #endif

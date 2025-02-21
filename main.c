@@ -3,16 +3,19 @@
 #include "structs/stack.c"
 #include "structs/queue.c"
 #include "structs/tree.c"
+#include "structs/bst.c"
 #include <math.h>
+
 
 void singlylinkedlists();
 void stacks();
 void queues();
 void trees();
+void bsts();
 
 int main(int argc, char *argv[])
 {
-    trees();
+    bsts();
 }
 
 void singlylinkedlists()
@@ -397,4 +400,50 @@ void trees()
     tprint(t0);
 
     tfree(r);
+}
+
+void bsts()
+{
+    printf("Creating b0 manually:\n");
+    bst *b0 = bcreaten();
+    bst *b0l = bcreatenv(-1);
+    bst *b0r = bcreatenv(1);
+    b0->left = b0l;
+    b0->right = b0r;
+    bprint(b0);
+
+    printf("Freeing b0:\n");
+    bfree(&b0);
+    bprint(b0);
+
+    printf("Creating b1 from array:\n");
+    int nums[] = {10, 4, 5, 2, 7, 3, 9, 12, 0, 1, 100, 8, 30, 35, 20, 25, 60, 45, 18, 3};
+    bst *b1 = bcreatea(nums, sizeof(nums)/sizeof(nums[0]));
+    bprint(b1);
+
+    printf("Searching for 4 in b1:\n");
+    bprint(*bstsearch(b1, 4));
+
+    printf("Searching for 8 in b1:\n");
+    bprint(*bstsearch(b1, 8)); 
+
+    printf("Searching for 100 in b1:\n");
+    bprint(*bstsearch(b1, 100)); 
+
+    printf("Searching for 30 in b1:\n");
+    bst **r = bstsearch(b1, 30);
+    if(r)
+        bprint(*r);
+
+    printf("Height of b1: %i\n", bheight(b1));
+    
+    printf("Trimming 9 from b1:\n");
+    bdelete(b1, 9, 't');
+    bprint(b1);
+
+    printf("Trimming 2 from b1:\n");
+    bdelete(b1, 2, 't');
+    bprint(b1);
+
+    bfree(&b1);
 }
