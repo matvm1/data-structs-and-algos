@@ -132,6 +132,8 @@ bst ** bstsearch(bst *b, int val)
     return res;
 }
 
+// bdelete() helper
+// TODO: promotion
 void bdelete_h(bst *b, int val, char mode)
 {
     if(!b)
