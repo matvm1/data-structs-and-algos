@@ -56,3 +56,7 @@ dkms.conf
 
 # Compiled Executable
 main
+demo
+
+# Hashtable example text files
+examples/hashtables/texts

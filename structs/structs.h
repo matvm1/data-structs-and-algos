@@ -43,6 +43,14 @@ typedef struct bst {
     struct bst *right;
 } bst;
 
+#define htWORDLENGTH 45
+// Represents a node in a hash table
+typedef struct htnode
+{
+    char word[htWORDLENGTH + 1];
+    struct htnode *next;
+} htnode;
+
 node * lnode(int val);
 list * lcreaten();
 list * lcreatea(int vals[], long len, char mode);
@@ -92,6 +100,7 @@ tree ** tsearch(tree *t, int val);
 void tprint(tree *t);
 void tfree(tree **t);
 
+// BSTs
 bst * bcreaten();
 bst * bcreatenv(int val);
 bst * bcreatea(int vals[], long len);
@@ -102,5 +111,13 @@ void bdelete(bst *b, int val, char mode);
 int bheight(bst *b);
 void bprint(bst *b);
 void bfree(bst **b);
+
+// Hash Tables
+int htcheck(const char *word);
+unsigned int hthash(const char *word);
+int htload(const char *dictionary);
+unsigned int htsize(void);
+int htunload(void);
+int strcmp_i(const char *a, const char *b);
 
 #endif

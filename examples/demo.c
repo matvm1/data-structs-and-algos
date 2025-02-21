@@ -1,21 +1,28 @@
-#include "structs/structs.h"
-#include "structs/linkedlist.c"
-#include "structs/stack.c"
-#include "structs/queue.c"
-#include "structs/tree.c"
-#include "structs/bst.c"
+#include "../structs/structs.h"
+#include "../structs/linkedlist.c"
+#include "../structs/stack.c"
+#include "../structs/queue.c"
+#include "../structs/tree.c"
+#include "../structs/bst.c"
+#include "../structs/hashtable.c"
+#include "hashtables/speller.c"
 #include <math.h>
-
 
 void singlylinkedlists();
 void stacks();
 void queues();
 void trees();
 void bsts();
+void hashtables(int argc, char *argv[]);
 
 int main(int argc, char *argv[])
 {
-    bsts();
+    //singlylinkedlists();
+    //stacks();
+    //queues();
+    //trees();
+    //bsts();
+    hashtables(argc, argv);
 }
 
 void singlylinkedlists()
@@ -446,4 +453,9 @@ void bsts()
     bprint(b1);
 
     bfree(&b1);
+}
+
+void hashtables(int argc, char *argv[])
+{
+    run_speller(argc, argv);
 }
