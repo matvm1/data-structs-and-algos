@@ -267,16 +267,20 @@ void bsts()
     bprint(b1);
 
     printf("Searching for 4 in b1:\n");
-    bprint(bstsearch(b1, 4));
+    bprint(*bstsearch(b1, 4));
 
     printf("Searching for 8 in b1:\n");
-    bprint(bstsearch(b1, 8)); 
+    bprint(*bstsearch(b1, 8)); 
 
     printf("Searching for 100 in b1:\n");
-    bprint(bstsearch(b1, 100)); 
+    bprint(*bstsearch(b1, 100)); 
 
     printf("Searching for 30 in b1:\n");
-    bprint(bstsearch(b1, 30));
+    bst **r = bstsearch(b1, 30);
+    if(r)
+        bprint(*r);
 
     printf("Height of b1: %i\n", bheight(b1));
+
+    bfree(&b1);
 }

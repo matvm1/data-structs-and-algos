@@ -76,7 +76,7 @@ bst * bcreatenv(int val);
 bst * bcreatea(int vals[], long len);
 void binsert(bst *b, int val);
 bst * binsert_r(bst *b, int val);
-bst * bstsearch(bst *b, int val);
+bst ** bstsearch(bst *b, int val);
 void bdelete(bst *b, int val, char mode);
 int bheight(bst *b);
 void bprint(bst *b);

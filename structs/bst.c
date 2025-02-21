@@ -114,14 +114,14 @@ bst * binsert_r(bst *b, int val)
 // Returns the nodes address if found, NULL otherwise
 // O(log n)
 // Omega(1)
-bst * bstsearch(bst *b, int val)
+bst ** bstsearch(bst *b, int val)
 {
     if(!b)
         return NULL;
 
-    bst *res = NULL;
+    bst **res = NULL;
     if(b->val == val)
-        res = b;
+        res = &b;
 
     if(!res && val < b->val && b->left)
         res = bstsearch(b->left, val);
