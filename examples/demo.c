@@ -1,4 +1,5 @@
 #include "../structs/structs.h"
+#include "../structs/arrays.c"
 #include "../structs/linkedlist.c"
 #include "../structs/stack.c"
 #include "../structs/queue.c"
@@ -8,6 +9,7 @@
 #include "hashtables/speller.c"
 #include <math.h>
 
+void arrays();
 void singlylinkedlists();
 void stacks();
 void queues();
@@ -17,12 +19,25 @@ void hashtables(int argc, char *argv[]);
 
 int main(int argc, char *argv[])
 {
+    arrays();
     //singlylinkedlists();
     //stacks();
     //queues();
     //trees();
     //bsts();
-    hashtables(argc, argv);
+    //hashtables(argc, argv);
+}
+
+void arrays()
+{
+    printf("Creating array nums:\n    nums: ");
+    int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
+    int numslen = sizeof(nums)/sizeof(nums[0]);
+    arrprint(nums, numslen);
+
+    printf("Sort nums:\n    nums: ");
+    arrsort(nums, numslen, insertion);
+    arrprint(nums, numslen);
 }
 
 void singlylinkedlists()

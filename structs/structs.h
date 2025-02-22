@@ -4,11 +4,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// Function pointer type for sorting algorithm callbacks
+typedef void (*algo_callback)(int *, int);
+
+// List node
 typedef struct node {
     int val;
     struct node *next;
 } node;
 
+// List head and tail
 typedef struct list {
     node *head;
     node *tail;
@@ -36,7 +41,6 @@ typedef struct tree{
     struct tree *subtree;
 } tree;
 
-// linked lists
 typedef struct bst {
     int val;
     struct bst *left;
@@ -51,6 +55,11 @@ typedef struct htnode
     struct htnode *next;
 } htnode;
 
+// Arrays
+void arrsort(int *arr, int len,  algo_callback algo_callback);
+void arrprint(int *arr, int len);
+
+// Lists
 node * lnode(int val);
 list * lcreaten();
 list * lcreatea(int vals[], long len, char mode);
@@ -72,7 +81,7 @@ void lremovecirc(list *l);
 void clprint(list *l, int m);
 void clprintn(list *l, node *n, int m);
 
-// stacks
+// Stacks
 stack * stcreaten();
 stack * stcreatea(int vals[], long len);
 void push(stack *s, int val);
@@ -81,7 +90,7 @@ int stpeek(stack *s);
 void stprint(stack *s);
 void stfree(stack **s);
 
-// queues
+// Queues
 queue * qcreaten();
 queue * qcreatea(int vals[], long len);
 void enqueue(queue *q, int val);
@@ -90,7 +99,7 @@ int qpeek(queue *q);
 void qprint(queue *q);
 void qfree(queue **q);
 
-// trees
+// Trees
 tree * tcreaten();
 tree * tcreatenv(int val);
 tree * tinsert(tree *t, int val);
