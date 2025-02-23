@@ -33,10 +33,12 @@ void arrays()
     printf("Creating array nums:\n    nums: ");
     int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
     int numslen = sizeof(nums)/sizeof(nums[0]);
+    int nums2[] = {3, 4, 9, 10};
+    int numslen2 = sizeof(nums2)/sizeof(nums2[0]);
     arrprint(nums, numslen);
 
-    printf("Sort nums:\n    nums: ");
-    arrsort(nums, numslen, insertion);
+    printf("Sort nums:\n    nums: \n");
+    arrsort(nums, numslen, merge);
     arrprint(nums, numslen);
 }
 
