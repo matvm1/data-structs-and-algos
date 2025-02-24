@@ -39,6 +39,7 @@ void arrays()
     printf("Running linear search for 23 in nums: %i\n", arrsearch(nums, numslen, 23, linear));
     printf("Running linear search for -100 in nums: %i\n", arrsearch(nums, numslen, -100, linear));
     printf("Running linear search for 50 in nums: %i\n", arrsearch(nums, numslen, 50, linear));
+    
     printf("Sort nums:\n    nums: \n");
     arrsort(nums, numslen, merge);
     arrprint(nums, numslen);

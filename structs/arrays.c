@@ -1,7 +1,6 @@
 #include "structs.h"
 
-void arrmerge(int arr[], int start, int end, int mid);
-
+// Swaps the values of a and b in memory
 void swap(int *a, int *b)
 {
     int tmp = *a;
@@ -81,24 +80,8 @@ static void insertion(int *arr, int len)
     }
 }
 
-// Merge sort helper
-static void mergesort_h(int *arr, int start, int end, int d)
-{
-    if(start < 0 || end < 0)
-        return;
-    if(start == end || end < start)
-        return;
-
-    int mid = (end - start + 1)/2 + start;
-
-    mergesort_h(arr, start, mid - 1, d + 1);
-    mergesort_h(arr, mid, end, d + 1);
-
-    arrmerge(arr, start, end, mid);
-}
-
 // Merges subarray[start...(mid - 1)] and subarray[mid...end] into arr[start...end]
-void arrmerge(int arr[], int start, int end, int mid)
+static void arrmerge(int arr[], int start, int end, int mid)
 {
     if(end - start < 1)
         return;
@@ -145,6 +128,22 @@ void arrmerge(int arr[], int start, int end, int mid)
     }
 }
 
+// Merge sort helper
+static void mergesort_h(int *arr, int start, int end, int d)
+{
+    if(start < 0 || end < 0)
+        return;
+    if(start == end || end < start)
+        return;
+
+    int mid = (end - start + 1)/2 + start;
+
+    mergesort_h(arr, start, mid - 1, d + 1);
+    mergesort_h(arr, mid, end, d + 1);
+
+    arrmerge(arr, start, end, mid);
+}
+
 // Merge sorts arr
 // Time-complexity:
 //    Theta(n log n)
@@ -166,7 +165,7 @@ int arrsearch(int *arr, int len, int val, searchalgo_callback searchalgo_callbac
 
 // Brute search for val in arr
 // Theta(n)
-int linear(int *arr, int len, int val)
+static int linear(int *arr, int len, int val)
 {
     int i = 0;
     while(i < len)
@@ -180,7 +179,7 @@ int linear(int *arr, int len, int val)
 }
 
 // Binary search helper
-int binary_h(int *arr, int start, int end, int val)
+static int binary_h(int *arr, int start, int end, int val)
 {
     if(start == end && val != arr[start])
         return -1;
@@ -200,7 +199,7 @@ int binary_h(int *arr, int start, int end, int val)
 // arr must be sorted
 // O(log n)
 // Omega(1)
-int binary(int *arr, int len, int val)
+static int binary(int *arr, int len, int val)
 {
     if(!arr || len < 0)
         return -1;
