@@ -31,15 +31,22 @@ int main(int argc, char *argv[])
 void arrays()
 {
     printf("Creating array nums:\n    nums: ");
-    int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3};
+    int nums[] = {1, 3, 3, 5, 7, 11, 4, -1, -10, -100, 11, 3, 1, 1, 2, 4, 3, 23};
     int numslen = sizeof(nums)/sizeof(nums[0]);
-    int nums2[] = {3, 4, 9, 10};
-    int numslen2 = sizeof(nums2)/sizeof(nums2[0]);
     arrprint(nums, numslen);
 
+    printf("Running linear search for 1 in nums: %i\n", arrsearch(nums, numslen, 1, linear));
+    printf("Running linear search for 23 in nums: %i\n", arrsearch(nums, numslen, 23, linear));
+    printf("Running linear search for -100 in nums: %i\n", arrsearch(nums, numslen, -100, linear));
+    printf("Running linear search for 50 in nums: %i\n", arrsearch(nums, numslen, 50, linear));
     printf("Sort nums:\n    nums: \n");
     arrsort(nums, numslen, merge);
     arrprint(nums, numslen);
+
+    printf("Running binary search for 1 in nums: %i\n", arrsearch(nums, numslen, 1, binary));
+    printf("Running binary search for 23 in nums: %i\n", arrsearch(nums, numslen, 23, binary));
+    printf("Running binary search for -100 in nums: %i\n", arrsearch(nums, numslen, -100, binary));
+    printf("Running binary search for 50 in nums: %i\n", arrsearch(nums, numslen, 50, binary));
 }
 
 void singlylinkedlists()

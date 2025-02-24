@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// Function pointer type for sorting algorithm callbacks
-typedef void (*algo_callback)(int *, int);
+// Function pointer types for sorting and search algorithm callbacks
+typedef void (*sortalgo_callback)(int *, int);
+typedef int (*searchalgo_callback)(int *, int, int);
 
 // List node
 typedef struct node {
@@ -56,7 +57,8 @@ typedef struct htnode
 } htnode;
 
 // Arrays
-void arrsort(int *arr, int len,  algo_callback algo_callback);
+void arrsort(int *arr, int len, sortalgo_callback sortalgo_callback);
+int arrsearch(int *arr, int len, int val, searchalgo_callback searchalgo_callback);
 void arrprint(int *arr, int len);
 
 // Lists
