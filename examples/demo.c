@@ -1,5 +1,5 @@
 #include "../structs/structs.h"
-#include "../structs/arrays.c"
+#include "../structs/array.c"
 #include "../structs/linkedlist.c"
 #include "../structs/stack.c"
 #include "../structs/queue.c"
