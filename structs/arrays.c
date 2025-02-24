@@ -181,7 +181,7 @@ static int linear(int *arr, int len, int val)
 // Binary search helper
 static int binary_h(int *arr, int start, int end, int val)
 {
-    if(start == end && val != arr[start])
+    if(start > end)
         return -1;
         
     int mid = (end - start + 1)/2 + start;
